@@ -4,7 +4,8 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Sidebar from "./components/Sidebar";
 import Topbar from "./components/Topbar";
 import Inicio from "./components/Tabs/Dashboard";
-import Reportes from "./pages/Reportes";
+import Control from "./components/Tabs/Control";
+import Logs from "./components/Tabs/Logs";
 import Configuracion from "./components/Tabs/Configuracion";
 import Mensajes from "./pages/Mensajes";
 import "./styles/sidebar.css";
@@ -31,7 +32,8 @@ export default function App() {
           <div className="content-area">
             <Routes>
               <Route path="/" element={<Inicio />} />
-              <Route path="/reportes" element={<Reportes />} />
+              <Route path="/control" element={<Control />} />
+              <Route path="/logs" element={<Logs />} />
               <Route path="/configuracion" element={<Configuracion />} />
               <Route path="/mensajes" element={<Mensajes />} />
             </Routes>

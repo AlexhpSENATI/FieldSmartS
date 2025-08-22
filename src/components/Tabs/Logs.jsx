@@ -1,6 +1,6 @@
 import React from "react";
 
-function Reportes() {
+function Logs() {
   return (
     <div>
       <h1>Página de Reporte</h1>
@@ -9,4 +9,4 @@ function Reportes() {
   );
 }
 
-export default Reportes;
+export default Logs;

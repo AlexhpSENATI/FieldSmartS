@@ -1,6 +1,6 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
-import { FaChartLine, FaHome, FaChartBar, FaCog, FaEnvelope, FaSignOutAlt } from "react-icons/fa";
+import { FaChartLine, FaHome, FaChartBar, FaCog, FaEnvelope, FaSignOutAlt, FaTachometerAlt } from "react-icons/fa";
 
 export default function Sidebar({ isOpen }) {
     return (
@@ -15,18 +15,23 @@ export default function Sidebar({ isOpen }) {
                         <FaHome /> Dashboard
                     </NavLink>
                 </li>
-
-                
                 <li>
-                    <NavLink to="/reportes" className={({ isActive }) => (isActive ? "active" : "")}>
-                        <FaChartBar /> Reportes
+                    <NavLink to="/control" end className={({ isActive }) => (isActive ? "active" : "")}>
+                        <FaTachometerAlt /> Control
                     </NavLink>
                 </li>
+
                 <li>
                     <NavLink to="/configuracion" className={({ isActive }) => (isActive ? "active" : "")}>
                         <FaCog /> Configuración
                     </NavLink>
                 </li>
+                <li>
+                    <NavLink to="/logs" className={({ isActive }) => (isActive ? "active" : "")}>
+                        <FaChartBar /> Logs
+                    </NavLink>
+                </li>
+
                 <li>
                     <NavLink to="/mensajes" className={({ isActive }) => (isActive ? "active" : "")}>
                         <FaEnvelope /> Mensajes
