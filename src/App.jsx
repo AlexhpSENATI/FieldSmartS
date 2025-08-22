@@ -3,9 +3,9 @@ import "@fortawesome/fontawesome-free/css/all.min.css";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Sidebar from "./components/Sidebar";
 import Topbar from "./components/Topbar";
-import Inicio from "./pages/Inicio";
+import Inicio from "./components/Tabs/Dashboard";
 import Reportes from "./pages/Reportes";
-import Configuracion from "./pages/Configuracion";
+import Configuracion from "./components/Tabs/Configuracion";
 import Mensajes from "./pages/Mensajes";
 import "./styles/sidebar.css";
 

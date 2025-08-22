@@ -12,9 +12,11 @@ export default function Sidebar({ isOpen }) {
             <ul>
                 <li>
                     <NavLink to="/" end className={({ isActive }) => (isActive ? "active" : "")}>
-                        <FaHome /> Inicio
+                        <FaHome /> Dashboard
                     </NavLink>
                 </li>
+
+                
                 <li>
                     <NavLink to="/reportes" className={({ isActive }) => (isActive ? "active" : "")}>
                         <FaChartBar /> Reportes
@@ -30,6 +32,7 @@ export default function Sidebar({ isOpen }) {
                         <FaEnvelope /> Mensajes
                     </NavLink>
                 </li>
+
             </ul>
 
             <div className="sidebar-footer">

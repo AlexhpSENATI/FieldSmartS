@@ -4,7 +4,8 @@ function Inicio() {
   return (
     <div>
       <h1>Bienvenido al Panel</h1>
-      <p>Este es el contenido de inicio.</p>
+      <p>Este es el contenido de inicio dash xd
+        .</p>
     </div>
   );
 }
