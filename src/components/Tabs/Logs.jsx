@@ -2,9 +2,17 @@ import React from "react";
 
 function Logs() {
   return (
-    <div>
-      <h1>Página de Reporte</h1>
-      <p>Aquí van las opciones de configuración del sistema.</p>
+    <div className="tab-content">
+      <h2>Registro de Actividades</h2>
+      <div className="control-section">
+        <h3>Log en Tiempo Real</h3>
+        <div className="log-container" id="log-container">
+          <div className="log-entry">Sistema iniciado. Esperando conexión...</div>
+        </div>
+        <button className="btn" onClick={() => window.limpiarLogs()} style={{ marginTop: "15px" }}>
+          🗑️ Limpiar Logs
+        </button>
+      </div>
     </div>
   );
 }

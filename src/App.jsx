@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import "@fortawesome/fontawesome-free/css/all.min.css";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Sidebar from "./components/Sidebar";
+import Header from "./components/Header";
 import Topbar from "./components/Topbar";
 import Inicio from "./components/Tabs/Dashboard";
 import Control from "./components/Tabs/Control";
