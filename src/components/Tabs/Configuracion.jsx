@@ -1,26 +1,49 @@
+// Configuracion.jsx
 import React from "react";
 
-function Configuracion() {
+const Configuracion = ({ actualizarIntervalo, limpiarHistorial, exportarDatos }) => {
   return (
-    <div className="tab-content">
+    <div id="config" className="tab-content">
       <h2>Configuración del Sistema</h2>
       <div className="control-section">
         <div className="control-grid">
           <div className="control-group">
-            <div className="control-title">🔧 Configuración de Actualización</div>
-            <input type="number" className="form-input" id="intervalo-actualizacion" min="1" max="60" defaultValue="2" />
-            <button className="btn" onClick={() => window.actualizarIntervalo()}>⏱️ Aplicar Intervalo</button>
+            <div className="control-title">
+              <span>🔧</span>
+              Configuración de Actualización
+            </div>
+            <div className="form-group">
+              <label className="form-label">Intervalo de actualización (segundos):</label>
+              <input
+                type="number"
+                className="form-input"
+                id="intervalo-actualizacion"
+                min="1"
+                max="60"
+                defaultValue="2"
+              />
+            </div>
+            <button className="btn" onClick={actualizarIntervalo}>
+              <span>⏱️</span> Aplicar Intervalo
+            </button>
           </div>
 
           <div className="control-group">
-            <div className="control-title">📊 Configuración de Datos</div>
-            <button className="btn warning" onClick={() => window.limpiarHistorial()}>🗑️ Limpiar Historial</button>
-            <button className="btn" onClick={() => window.exportarDatos()}>📥 Exportar Datos</button>
+            <div className="control-title">
+              <span>📊</span>
+              Configuración de Datos
+            </div>
+            <button className="btn warning" onClick={limpiarHistorial}>
+              <span>🗑️</span> Limpiar Historial
+            </button>
+            <button className="btn" onClick={exportarDatos}>
+              <span>📥</span> Exportar Datos
+            </button>
           </div>
         </div>
       </div>
     </div>
   );
-}
+};
 
 export default Configuracion;

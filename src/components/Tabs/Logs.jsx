@@ -1,20 +1,25 @@
+// Logs.jsx
 import React from "react";
 
-function Logs() {
+const Logs = ({ logs = [], limpiarLogs }) => {
   return (
-    <div className="tab-content">
+    <div id="logs" className="tab-content">
       <h2>Registro de Actividades</h2>
       <div className="control-section">
         <h3>Log en Tiempo Real</h3>
         <div className="log-container" id="log-container">
-          <div className="log-entry">Sistema iniciado. Esperando conexión...</div>
+          {logs.map((log, index) => (
+            <div key={index} className="log-entry">
+              {log}
+            </div>
+          ))}
         </div>
-        <button className="btn" onClick={() => window.limpiarLogs()} style={{ marginTop: "15px" }}>
-          🗑️ Limpiar Logs
+        <button className="btn" onClick={limpiarLogs} style={{ marginTop: '15px' }}>
+          <span>🗑️</span> Limpiar Logs
         </button>
       </div>
     </div>
   );
-}
+};
 
 export default Logs;

@@ -1,4 +1,8 @@
-import React, { useState, useEffect, useRef } from "react";
+// Dashboard.jsx
+import React, { useState, useEffect } from "react";
+import Control from "./Control";
+import Configuracion from "./Configuracion";
+import Logs from "./Logs";
 
 const Dashboard = () => {
   const [espIP, setEspIP] = useState(localStorage.getItem('esp-ip') || '192.168.1.100');
@@ -424,118 +428,26 @@ const Dashboard = () => {
         )}
 
         {activeTab === 'control' && (
-          <div id="control" className="tab-content">
-            <h2>Panel de Control</h2>
-            <div className="control-section">
-              <div className="control-grid">
-                <div className="control-group">
-                  <div className="control-title">
-                    <span>⚡</span>
-                    Control Manual de Bomba
-                  </div>
-                  <button className="btn success" onClick={() => controlarBomba(true)}>
-                    <span>🟢</span> Encender Bomba
-                  </button>
-                  <button className="btn danger" onClick={() => controlarBomba(false)}>
-                    <span>🔴</span> Apagar Bomba
-                  </button>
-                </div>
-
-                <div className="control-group">
-                  <div className="control-title">
-                    <span>🤖</span>
-                    Modo de Operación
-                  </div>
-                  <div className="form-group">
-                    <label className="form-label">Modo Automático:</label>
-                    <select className="form-input" id="modo-automatico">
-                      <option value="true">Activado</option>
-                      <option value="false">Desactivado</option>
-                    </select>
-                  </div>
-                  <button className="btn" onClick={cambiarModo}>
-                    <span>🔄</span> Cambiar Modo
-                  </button>
-                </div>
-
-                <div className="control-group">
-                  <div className="control-title">
-                    <span>⚙️</span>
-                    Configuración de Riego
-                  </div>
-                  <div className="form-group">
-                    <label className="form-label">Humedad Mínima (%):</label>
-                    <input type="number" className="form-input" id="umbral-humedad" min="0" max="100" defaultValue="40" />
-                  </div>
-                  <button className="btn warning" onClick={actualizarUmbral}>
-                    <span>💾</span> Guardar Umbral
-                  </button>
-                </div>
-              </div>
-            </div>
-          </div>
+          <Control
+            controlarBomba={controlarBomba}
+            cambiarModo={cambiarModo}
+            actualizarUmbral={actualizarUmbral}
+          />
         )}
 
         {activeTab === 'config' && (
-          <div id="config" className="tab-content">
-            <h2>Configuración del Sistema</h2>
-            <div className="control-section">
-              <div className="control-grid">
-                <div className="control-group">
-                  <div className="control-title">
-                    <span>🔧</span>
-                    Configuración de Actualización
-                  </div>
-                  <div className="form-group">
-                    <label className="form-label">Intervalo de actualización (segundos):</label>
-                    <input
-                      type="number"
-                      className="form-input"
-                      id="intervalo-actualizacion"
-                      min="1"
-                      max="60"
-                      defaultValue="2"
-                    />
-                  </div>
-                  <button className="btn" onClick={actualizarIntervalo}>
-                    <span>⏱️</span> Aplicar Intervalo
-                  </button>
-                </div>
-
-                <div className="control-group">
-                  <div className="control-title">
-                    <span>📊</span>
-                    Configuración de Datos
-                  </div>
-                  <button className="btn warning" onClick={limpiarHistorial}>
-                    <span>🗑️</span> Limpiar Historial
-                  </button>
-                  <button className="btn" onClick={exportarDatos}>
-                    <span>📥</span> Exportar Datos
-                  </button>
-                </div>
-              </div>
-            </div>
-          </div>
+          <Configuracion
+            actualizarIntervalo={actualizarIntervalo}
+            limpiarHistorial={limpiarHistorial}
+            exportarDatos={exportarDatos}
+          />
         )}
 
         {activeTab === 'logs' && (
-          <div id="logs" className="tab-content">
-            <h2>Registro de Actividades</h2>
-            <div className="control-section">
-              <h3>Log en Tiempo Real</h3>
-              <div className="log-container" id="log-container">
-                {logs.map((log, index) => (
-                  <div key={index} className="log-entry">
-                    {log}
-                  </div>
-                ))}
-              </div>
-              <button className="btn" onClick={limpiarLogs} style={{ marginTop: '15px' }}>
-                <span>🗑️</span> Limpiar Logs
-              </button>
-            </div>
-          </div>
+          <Logs
+            logs={logs}
+            limpiarLogs={limpiarLogs}
+          />
         )}
       </div>
 
