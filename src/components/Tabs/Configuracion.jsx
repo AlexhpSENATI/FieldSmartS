@@ -1,9 +1,13 @@
-// Configuracion.jsx
-import React from "react";
+// src/components/Tabs/Configuracion.jsx
+import React, { useState, useContext } from 'react';
+import { AppContext } from '../../context/AppContext';
 
-const Configuracion = ({ actualizarIntervalo, limpiarHistorial, exportarDatos }) => {
+const Configuracion = () => {
+  const { actualizarIntervalo, limpiarHistorial, exportarDatos } = useContext(AppContext);
+  const [intervalo, setIntervalo] = useState(2);
+
   return (
-    <div id="config" className="tab-content">
+    <div className="tab-content">
       <h2>Configuración del Sistema</h2>
       <div className="control-section">
         <div className="control-grid">
@@ -17,13 +21,13 @@ const Configuracion = ({ actualizarIntervalo, limpiarHistorial, exportarDatos })
               <input
                 type="number"
                 className="form-input"
-                id="intervalo-actualizacion"
                 min="1"
                 max="60"
-                defaultValue="2"
+                value={intervalo}
+                onChange={(e) => setIntervalo(e.target.value)}
               />
             </div>
-            <button className="btn" onClick={actualizarIntervalo}>
+            <button className="btn" onClick={() => actualizarIntervalo(intervalo)}>
               <span>⏱️</span> Aplicar Intervalo
             </button>
           </div>

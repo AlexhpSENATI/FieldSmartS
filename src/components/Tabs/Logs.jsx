@@ -15,7 +15,7 @@ const Logs = ({ logs = [], limpiarLogs }) => {
           ))}
         </div>
         <button className="btn" onClick={limpiarLogs} style={{ marginTop: '15px' }}>
-          <span>🗑️</span> Limpiar Logs
+          <span>🗑️</span> Limpiar Logs xd
         </button>
       </div>
     </div>
