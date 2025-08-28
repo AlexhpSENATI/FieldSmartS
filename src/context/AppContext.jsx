@@ -114,6 +114,10 @@ export const AppProvider = ({ children }) => {
         }
     };
 
+
+
+
+
     //   const cambiarModo = async (modo) => {
     //     try {
     //       const response = await fetch(`http://${espIP}:${espPort}/api/modo`, {
