@@ -1,23 +1,5 @@
 // src/context/AppContext.jsx
 import React, { createContext, useState, useEffect, useRef } from 'react';
-import { initializeApp } from 'firebase/app';
-import { getDatabase, ref, push } from 'firebase/database';
-
-// Configuración de Firebase - Reemplaza con tus credenciales reales
-const firebaseConfig = {
-  apiKey: "AIzaSyBqlMrCp7cUcQ4xNGMPM_urU1UfXEOtEG8",
-  authDomain: "smart-ceb0f.firebaseapp.com",
-  databaseURL: "https://smart-ceb0f-default-rtdb.firebaseio.com",
-  projectId: "smart-ceb0f",
-  storageBucket: "smart-ceb0f.firebasestorage.app",
-  messagingSenderId: "263148013514",
-  appId: "1:263148013514:web:cfc1e2e434f16ae298f133",
-  measurementId: "G-8P55Y4R9DR"
-};
-
-// Inicializar Firebase
-const app = initializeApp(firebaseConfig);
-const database = getDatabase(app);
 
 export const AppContext = createContext();
 
@@ -105,23 +87,6 @@ export const AppProvider = ({ children }) => {
                 agregarLog(`✅ Conectado exitosamente a ${espIP}:${espPort}`);
                 mostrarAlerta('Conectado exitosamente', 'success');
             }
-
-            // Guardar datos en Firebase Realtime Database en tiempo real
-            const datosRef = ref(database, 'datos');
-            const fechaHora = new Date().toISOString(); // Agregar fecha y hora actual en formato ISO
-            const datosAGuardar = {
-                ...newDatos,
-                fechaHora, // Incluir fecha, hora, año
-                bombaDuracion: newDatos.ultimoRiego || 0, // Duración de la bomba (asumiendo ultimoRiego es la duración)
-            };
-            push(datosRef, datosAGuardar)
-                .then(() => {
-                    agregarLog('Datos guardados en la base de datos en tiempo real');
-                })
-                .catch((error) => {
-                    agregarLog(`❌ Error al guardar datos en DB: ${error.message}`);
-                });
-
         } catch (error) {
             console.error('Error:', error);
             if (connected) {
@@ -149,6 +114,24 @@ export const AppProvider = ({ children }) => {
         }
     };
 
+
+    //   const cambiarModo = async (modo) => {
+
+    //     try {
+    //       const response = await fetch(`http://${espIP}:${espPort}/api/modo`, {
+    //         method: 'POST',
+    //         headers: { 'Content-Type': 'application/json' },
+    //         body: JSON.stringify({ automatico: modo }),
+    //       });
+    //       if (!response.ok) throw new Error('Error HTTP');
+    //       agregarLog(`Modo automático ${modo ? 'ACTIVADO' : 'DESACTIVADO'}`);
+    //       mostrarAlerta(`Modo automático ${modo ? 'activado' : 'desactivado'}`, 'warning');
+    //       obtenerDatos();
+    //     } catch (err) {
+    //       agregarLog(`❌ Error al cambiar modo: ${err.message}`);
+    //       mostrarAlerta('Error al cambiar modo', 'error');
+    //     }
+    //   };
     const cambiarModo = async (modo) => {
         try {
             const response = await fetch(`http://${espIP}:${espPort}/api/config`, {
@@ -165,7 +148,6 @@ export const AppProvider = ({ children }) => {
             mostrarAlerta('Error al cambiar modo', 'error');
         }
     };
-
     const actualizarUmbral = async (umbral) => {
         try {
             const response = await fetch(`http://${espIP}:${espPort}/api/config`, {
@@ -182,6 +164,23 @@ export const AppProvider = ({ children }) => {
             mostrarAlerta('Error al actualizar umbral', 'error');
         }
     };
+
+    // const actualizarUmbral = async (umbral) => {
+    //     try {
+    //         const response = await fetch(`http://${espIP}:${espPort}/api/umbral`, {
+    //             method: 'POST',
+    //             headers: { 'Content-Type': 'application/json' },
+    //             body: JSON.stringify({ humedadMinima: parseInt(umbral) }),
+    //         });
+    //         if (!response.ok) throw new Error('Error HTTP');
+    //         agregarLog(`Umbral de humedad actualizado a ${umbral}%`);
+    //         mostrarAlerta(`Umbral actualizado a ${umbral}%`, 'success');
+    //         obtenerDatos();
+    //     } catch (err) {
+    //         agregarLog(`❌ Error al actualizar umbral: ${err.message}`);
+    //         mostrarAlerta('Error al actualizar umbral', 'error');
+    //     }
+    // };
 
     const actualizarIntervalo = (valor) => {
         const newInterval = parseInt(valor) * 1000;
