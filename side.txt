@@ -1,0 +1,91 @@
+import React, { useState } from "react";
+import "../styles/Sidebar.css"; // Importamos los estilos
+// import { Sidebar } from "lucide-react";
+
+const Sidebar = () => {
+  const [activeItem, setActiveItem] = useState("Dashboard");
+
+  const handleNavClick = (item) => {
+    setActiveItem(item);
+  };
+
+  return (
+    <div className="app">
+      {/* Sidebar */}
+      <div className="sidebar">
+        <div className="logo-container">
+          <div className="logo">
+            <i className="fas fa-leaf"></i>
+          </div>
+          <div className="brand-name">FIELDSMART</div>
+        </div>
+
+        <ul className="nav-menu">
+          {["Dashboard", "Estadísticas", "Control", "Configuración", "Logs"].map(
+            (item) => (
+              <li
+                key={item}
+                className={`nav-item ${activeItem === item ? "active" : ""}`}
+                onClick={() => handleNavClick(item)}
+              >
+                <i
+                  className={
+                    item === "Dashboard"
+                      ? "fas fa-home"
+                      : item === "Estadísticas"
+                      ? "fas fa-chart-line"
+                      : item === "Control"
+                      ? "fas fa-tachometer-alt"
+                      : item === "Configuración"
+                      ? "fas fa-cog"
+                      : "fas fa-file-alt"
+                  }
+                ></i>
+                {item}
+              </li>
+            )
+          )}
+        </ul>
+
+        <button className="logout-btn">
+          Cerrar
+          <i className="fas fa-sign-out-alt"></i>
+        </button>
+      </div>
+
+      {/* Main Content */}
+      <div className="main-content">
+        <div className="header">
+          <div className="search-bar">
+            <i className="fas fa-search"></i>
+            <input type="text" placeholder="Buscar" />
+          </div>
+
+          <div className="header-icons">
+            <button>
+              <i className="fas fa-bell"></i>
+            </button>
+            <button>
+              <i className="fas fa-cog"></i>
+            </button>
+            <img
+              src="https://via.placeholder.com/35"
+              alt="User"
+              className="user-avatar"
+            />
+          </div>
+        </div>
+
+        <div className="titulo">
+          <h2 className="title">PANEL DE CONTROL</h2>
+        </div>
+
+        <div className="content-area">
+          <p>contenido</p>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default Sidebar;
