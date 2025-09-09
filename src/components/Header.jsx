@@ -30,7 +30,7 @@ export default function Header() {
           justify-content: space-between;
           align-items: center;
           border-radius: 0.75rem;
-          height: 60px;              /* 🔒 Alto fijo */
+          height: 80px;              /* 🔒 Alto fijo */
           min-height: 60px;
           box-sizing: border-box;
           position: sticky;
