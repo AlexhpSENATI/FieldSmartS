@@ -1,33 +1,51 @@
-import React from 'react';
-// Importa Material Design Icons
-import { MdOutlineNotifications, MdSettings } from 'react-icons/md';
-import { FaSearch } from 'react-icons/fa';
+import React from "react";
 
-const Header = () => {
-    return (
-        <header className="header">
-            {/* Barra de búsqueda */}
-            <div className="search-bar">
-                <FaSearch className="search-icon" size={18} />
-                <input type="text" placeholder="Buscar" />
-            </div>
+export default function Header() {
+  return (
+    <header className="custom-header-123">
+      <h1 className="custom-header-123__title">Mi Header Estático</h1>
+      <nav className="custom-header-123__nav">
+        <ul>
+          <li><a href="#">Inicio</a></li>
+          <li><a href="#">Servicios</a></li>
+          <li><a href="#">Contacto</a></li>
+        </ul>
+      </nav>
 
-            {/* Iconos de acción */}
-            <div className="header-icons">
-                <button>
-                    <MdOutlineNotifications size={24} />
-                </button>
-                <button>
-                    <MdSettings size={24} />
-                </button>
-                <img
-                    src="https://randomuser.me/api/portraits/women/45.jpg"
-                    alt="Usuario"
-                    className="user-avatar"
-                />
-            </div>
-        </header>
-    );
-};
+      {/* CSS en el mismo archivo */}
+      <style>{`
+        .custom-header-123 {
+          background-color: #1a1a1a;
+          color: white;
+          padding: 1rem 2rem;
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+        }
 
-export default Header;
+        .custom-header-123__title {
+          font-size: 1.5rem;
+          font-weight: bold;
+        }
+
+        .custom-header-123__nav ul {
+          display: flex;
+          gap: 1rem;
+          list-style: none;
+          margin: 0;
+          padding: 0;
+        }
+
+        .custom-header-123__nav a {
+          color: white;
+          text-decoration: none;
+          transition: color 0.3s;
+        }
+
+        .custom-header-123__nav a:hover {
+          color: #ffcc00;
+        }
+      `}</style>
+    </header>
+  );
+}

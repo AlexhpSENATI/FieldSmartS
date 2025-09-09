@@ -151,6 +151,7 @@
   overflow: hidden;
 }
 
+
 /* Header */
 .header {
   display: flex;
@@ -166,10 +167,10 @@
 
 /* Barra de búsqueda */
 .search-bar {
+  position: relative;
+  /* icono absolute se alinea respecto a search-bar */
   flex: 1;
   max-width: 400px;
-  position: relative;
-  margin-right: 15px;
 }
 
 .search-bar input {
@@ -226,7 +227,7 @@
   height: 40px;
   border-radius: 50%;
   object-fit: cover;
-  margin-top: 10px;
+  align-items: center;
   background-color: #ccc;
 }
 
