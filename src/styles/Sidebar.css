@@ -157,7 +157,7 @@
   justify-content: space-between;
   align-items: center;
   background-color: #121212;
-  padding: 20px 15px;
+  padding: 13px 15px;
   border-radius: 14px;
   color: white;
   gap: 8px;
@@ -184,18 +184,20 @@
   padding-left: 35px;
 }
 
-.search-bar i {
+.search-icon {
   position: absolute;
-  left: 10px;
+  left: 19px;
   top: 50%;
   transform: translateY(-50%);
   color: #999;
-  font-size: 14px;
+  font-size: 16px;
+  /* tamaño del icono de búsqueda */
 }
 
 /* Iconos del header */
 .header-icons {
   display: flex;
+  align-items: center;
   gap: 10px;
 }
 
@@ -204,25 +206,27 @@
   height: 35px;
   border-radius: 50%;
   background-color: white;
-  color: #121212;
+  color: #413f3f;
   border: none;
   cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 16px;
-  transition: background-color 0.3s ease;
+  padding: 0;
+  /* quita padding que reduce el icono */
 }
+
 
 .header-icons button:hover {
   background-color: #f0f0f0;
 }
 
 .user-avatar {
-  width: 35px;
-  height: 35px;
+  width: 40px;
+  height: 40px;
   border-radius: 50%;
   object-fit: cover;
+  margin-top: 10px;
   background-color: #ccc;
 }
 
