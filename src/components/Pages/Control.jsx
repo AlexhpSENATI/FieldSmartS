@@ -64,7 +64,7 @@ const ControlTab = () => {
       </div>
 
       {/* Estilos rápidos */}
-      <style>{`
+      {/* <style>{`
         .cards-grid {
           display: grid;
           grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
@@ -122,7 +122,7 @@ const ControlTab = () => {
         .btn.warning:hover {
           background: #d35400;
         }
-      `}</style>
+      `}</style> */}
     </div>
   );
 };

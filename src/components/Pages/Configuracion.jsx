@@ -10,11 +10,11 @@ const Configuracion = () => {
     <div style={{ padding: "1rem", fontFamily: "sans-serif" }}>
       <h2>⚙️ Configuración del Sistema</h2>
 
-      <div className="cards-grid">
+      <div className="confi-cards-grid">
         {/* Intervalo de actualización */}
-        <div className="card">
+        <div className="confi-card">
           <h3>🔧 Configuración de Actualización</h3>
-          <div className="form-group">
+          <div className="confi-form-group">
             <label>Intervalo (segundos):</label>
             <input
               type="number"
@@ -22,74 +22,85 @@ const Configuracion = () => {
               max="60"
               value={intervalo}
               onChange={(e) => setIntervalo(e.target.value)}
+              className="confi-input-number"
             />
           </div>
-          <button className="btn" onClick={() => actualizarIntervalo(intervalo)}>
+          <button className="confi-btn" onClick={() => actualizarIntervalo(intervalo)}>
             ⏱️ Aplicar Intervalo
           </button>
         </div>
 
         {/* Configuración de datos */}
-        <div className="card">
+        <div className="confi-card">
           <h3>📊 Configuración de Datos</h3>
-          <button className="btn warning" onClick={limpiarHistorial}>
+          <button className="confi-btn warning" onClick={limpiarHistorial}>
             🗑️ Limpiar Historial
           </button>
-          <button className="btn" onClick={exportarDatos}>
+          <button className="confi-btn" onClick={exportarDatos}>
             📥 Exportar Datos
           </button>
         </div>
       </div>
 
-      {/* Estilos rápidos */}
+      {/* Estilos internos para este componente */}
       <style>{`
-        .cards-grid {
-          display: grid;
-          grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        .confi-cards-grid {
+          display: flex;
           gap: 1rem;
-          margin-top: 1rem;
+          flex-wrap: wrap;
         }
-        .card {
-          background: #fff;
-          padding: 1rem;
+
+        .confi-card {
+          background-color: #f9f9f9;
           border-radius: 10px;
           box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+          padding: 1rem;
+          flex: 1 1 300px;
+          display: flex;
+          flex-direction: column;
+          gap: 1rem;
         }
-        .card h3 {
-          margin-bottom: 0.8rem;
+
+        .confi-card h3 {
+          margin-bottom: 0.5rem;
           font-size: 1.1rem;
         }
-        .form-group {
-          margin-bottom: 0.8rem;
+
+        .confi-form-group {
+          display: flex;
+          flex-direction: column;
+          gap: 0.3rem;
         }
-        input {
-          width: 100%;
-          padding: 0.4rem;
+
+        .confi-input-number {
+          padding: 0.4rem 0.6rem;
           border: 1px solid #ccc;
           border-radius: 6px;
-          margin-top: 0.3rem;
+          width: 100%;
+          font-size: 1rem;
         }
-        .btn {
-          display: inline-block;
-          margin-top: 0.5rem;
+
+        .confi-btn {
           padding: 0.5rem 1rem;
+          background-color: #4caf50;
+          color: white;
           border: none;
           border-radius: 6px;
           cursor: pointer;
           font-size: 0.95rem;
-          background: #3498db;
-          color: white;
+          transition: background-color 0.2s;
         }
-        .btn:hover {
-          background: #2980b9;
+
+        .confi-btn:hover {
+          background-color: #45a049;
         }
-        .btn.warning {
-          background: #f39c12;
-          color: white;
-          margin-right: 0.5rem;
+
+        .confi-btn.warning {
+          background-color: #f44336;
         }
-        .btn.warning:hover {
-          background: #d35400;
+
+        .confi-btn.warning:hover {
+          background-color: #d32f2f;
         }
       `}</style>
     </div>
