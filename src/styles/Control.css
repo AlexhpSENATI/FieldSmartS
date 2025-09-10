@@ -1,0 +1,115 @@
+.titulo-panel {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #2c3e50;
+    margin-bottom: 1.5rem;
+}
+
+.control-cards-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 1.5rem;
+}
+
+.control-card {
+    background: white;
+    border-radius: 16px;
+    padding: 1.5rem;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    text-align: center;
+}
+
+.card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 0.8rem;
+}
+
+.icon-fondo {
+    background: #b7e9b7;
+    border-radius: 50%;
+    padding: 0.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    transform: translateX(40px);
+    margin: 0 auto 1rem auto;
+    width: 100px;
+    height: 100px;
+}
+
+.icon-container img {
+    width: 60px;
+}
+
+.status-badge {
+    font-size: 0.9rem;
+    font-weight: 700;
+    padding: 0.3rem 0.8rem;
+    border-radius: 12px;
+    margin-top: -80px;
+}
+
+.status-badge.on {
+    background: #e6ffed;
+    color: #2ecc71;
+}
+
+.status-badge.off {
+    background: #ffe6e6;
+    color: #e74c3c;
+}
+
+h3 {
+    font-size: 1.1rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+    color: #2c3e50;
+}
+
+.button-group {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+}
+
+.control-btn {
+    border: none;
+    border-radius: 10px;
+    padding: 0.6rem 1.2rem;
+    font-weight: 700;
+    font-size: 0.9rem;
+    cursor: pointer;
+}
+
+.control-btn.success {
+    background: #2ecc71;
+    color: white;
+}
+
+.control-btn.danger {
+    background: #e74c3c;
+    color: white;
+}
+
+.form-row {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    justify-content: center;
+}
+
+.control-select {
+    flex: 1;
+    padding: 0.5rem;
+    border-radius: 10px;
+    border: 1px solid #ccc;
+    font-size: 0.9rem;
+}
+
+.label-text {
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+}
