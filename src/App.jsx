@@ -1,11 +1,13 @@
 import React, { useState } from 'react';
 import "./styles/sidebar.css";
-import { AppProvider } from './context/AppContext'; 
+import { AppProvider } from './context/AppContext';
 import Sidebar from './components/Sidebar';
 import Header from './components/Header';
 import ContentArea from './components/ContentArea';
-import Dashboard from './components/Pages/Dashboard';
-// import Estadisticas from './components/pages/Estadisticas';
+
+import { EstadisticasProvider } from "./context/EstadisticasContext";
+import Dashboard from './components/pages/Dashboard';
+import Estadisticas from './components/pages/Estadisticas';
 import Control from './components/pages/Control';
 import Configuracion from './components/pages/Configuracion';
 import Logs from './components/pages/Logs';
@@ -17,8 +19,12 @@ function App() {
     switch (activeTab) {
       case 'Dashboard':
         return <Dashboard />;
-      // case 'Estadisticas':
-      //   return <Estadisticas />;
+      case 'Estadisticas':
+        return (
+          <EstadisticasProvider>
+            <Estadisticas />
+          </EstadisticasProvider>
+        );
       case 'Control':
         return <Control />;
       case 'Configuracion':
