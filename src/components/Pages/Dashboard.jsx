@@ -58,10 +58,16 @@ const Dashboard = () => {
           {/* Temperatura */}
           <div className="dash-card dash-metric-card">
             <div className="dash-metric-icon">
-              <img src="../public/icons/temperatura.png" alt="Temperatura" style={{ width: "74px", height: "74px" }} />
+              <img
+                src="../public/icons/temperatura.png"
+                alt="Temperatura"
+                style={{ width: "74px", height: "74px" }}
+              />
             </div>
             <div>
-              <p className="dash-metric-value">{datos.temperatura !== undefined ? `${datos.temperatura.toFixed(1)}°C` : "--"}</p>
+              <p className="dash-metric-value">
+                {datos.temperatura != null ? `${datos.temperatura.toFixed(1)}°C` : "--"}
+              </p>
               <p className="dash-metric-label">Temperatura</p>
             </div>
           </div>
@@ -69,13 +75,41 @@ const Dashboard = () => {
           {/* Humedad Ambiental */}
           <div className="dash-card dash-metric-card">
             <div className="dash-metric-icon">
+              <img
+                src="../public/icons/ambiente.png"
+                alt="Humedad"
+                style={{ width: "74px", height: "74px" }}
+              />
+            </div>
+            <div>
+              <p className="dash-metric-value">
+                {datos.humedadAmbiental != null ? `${datos.humedadAmbiental.toFixed(1)}%` : "--"}
+              </p>
+              <p className="dash-metric-label">Humedad Ambiental</p>
+            </div>
+          </div>
+
+          {/* Temperatura */}
+          {/* <div className="dash-card dash-metric-card">
+            <div className="dash-metric-icon">
+              <img src="../public/icons/temperatura.png" alt="Temperatura" style={{ width: "74px", height: "74px" }} />
+            </div>
+            <div>
+              <p className="dash-metric-value">{datos.temperatura !== undefined ? `${datos.temperatura.toFixed(1)}°C` : "--"}</p>
+              <p className="dash-metric-label">Temperatura</p>
+            </div>
+          </div> */}
+
+          {/* Humedad Ambiental */}
+          {/* <div className="dash-card dash-metric-card">
+            <div className="dash-metric-icon">
               <img src="../public/icons/ambiente.png" alt="Humedad" style={{ width: "74px", height: "74px" }} />
             </div>
             <div>
               <p className="dash-metric-value">{datos.humedadAmbiental !== undefined ? `${datos.humedadAmbiental.toFixed(1)}%` : "--"}</p>
               <p className="dash-metric-label">Humedad Ambiental</p>
             </div>
-          </div>
+          </div> */}
 
           {/* Humedad del Suelo */}
           <div className="dash-card dash-metric-card">
