@@ -35,8 +35,6 @@ const ControlTab = () => {
           </h3>
           <p className="label-text">Modo Manual:</p>
 
-
-
           <div className="button-groupxd">
             <button
               className="control-btn successxd"
@@ -126,8 +124,6 @@ const ControlTab = () => {
           </div>
         </div>
       </div>
-
-
     </div>
   );
 };

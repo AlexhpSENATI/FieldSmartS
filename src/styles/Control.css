@@ -105,10 +105,19 @@ h3 {
     background: #2ecc71;
     color: white;
 }
+.control-btn.success:hover {
+    background: #079140;
+}
 
 .control-btn.danger {
     background: #e74c3c;
     color: white;
+}
+.control-btn.dangerxd:hover {
+    background: #91180a;
+}
+.control-btn.successxd:hover {
+    background: #079140;
 }
 
 .form-row {

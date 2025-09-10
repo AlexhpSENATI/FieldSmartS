@@ -5,14 +5,14 @@ import { getDatabase, ref, push } from 'firebase/database';
 
 // Configuración de Firebase - Reemplaza con tus credenciales reales
 const firebaseConfig = {
-  apiKey: "AIzaSyBqlMrCp7cUcQ4xNGMPM_urU1UfXEOtEG8",
-  authDomain: "smart-ceb0f.firebaseapp.com",
-  databaseURL: "https://smart-ceb0f-default-rtdb.firebaseio.com",
-  projectId: "smart-ceb0f",
-  storageBucket: "smart-ceb0f.firebasestorage.app",
-  messagingSenderId: "263148013514",
-  appId: "1:263148013514:web:cfc1e2e434f16ae298f133",
-  measurementId: "G-8P55Y4R9DR"
+    apiKey: "AIzaSyBqlMrCp7cUcQ4xNGMPM_urU1UfXEOtEG8",
+    authDomain: "smart-ceb0f.firebaseapp.com",
+    databaseURL: "https://smart-ceb0f-default-rtdb.firebaseio.com",
+    projectId: "smart-ceb0f",
+    storageBucket: "smart-ceb0f.firebasestorage.app",
+    messagingSenderId: "263148013514",
+    appId: "1:263148013514:web:cfc1e2e434f16ae298f133",
+    measurementId: "G-8P55Y4R9DR"
 };
 
 // Inicializar Firebase
