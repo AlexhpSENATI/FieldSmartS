@@ -32,7 +32,7 @@ const Dashboard = () => {
                 type="text"
                 value={espIP}
                 onChange={(e) => setEspIP(e.target.value)}
-                placeholder="192.168.1.100"
+                placeholder="192.168.0.40"
                 className="dash-input-text"
               />
             </div>

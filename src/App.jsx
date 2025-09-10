@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import "./styles/sidebar.css";
 import { AppProvider } from './context/AppContext';
 import Sidebar from './components/Sidebar';
@@ -12,8 +12,14 @@ import Control from './components/pages/Control';
 import Configuracion from './components/pages/Configuracion';
 import Logs from './components/pages/Logs';
 
+import { iniciarMonitoreo } from "./notificaciones";
+
 function App() {
   const [activeTab, setActiveTab] = useState('Dashboard');
+
+  useEffect(() => {
+    iniciarMonitoreo();
+  }, []);
 
   const renderContent = () => {
     switch (activeTab) {
