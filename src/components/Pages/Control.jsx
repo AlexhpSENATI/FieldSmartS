@@ -10,11 +10,11 @@ const ControlTab = () => {
 
   const [modoAutomatico, setModoAutomatico] = useState("false");
   const [umbralHumedad, setUmbralHumedad] = useState(40);
-  const [estadoBomba, setEstadoBomba] = useState(false); 
+  const [estadoBomba, setEstadoBomba] = useState(false);
 
   return (
-    <div style={{ padding: "1rem", fontFamily: "sans-serif" }}>
-      <h2 className="titulo-panel">Panel de Control</h2>
+    <div >
+      <h2 style={{ fontSize: "1.5rem", fontWeight: "700", color: "#2c3e50", marginBottom: "1.5rem" }}>Panel de Control</h2>
 
       <div className="control-cards-grid">
         {/* Control Manual */}
@@ -30,10 +30,16 @@ const ControlTab = () => {
               {estadoBomba ? "ON" : "OFF"}
             </span>
           </div>
-          <h3>CONTROL MANUAL DE BOMBA</h3>
-          <div className="button-group">
+          <h3>
+            CONTROL MANUAL <br /> DE BOMBA
+          </h3>
+          <p className="label-text">Modo Manual:</p>
+
+
+
+          <div className="button-groupxd">
             <button
-              className="control-btn success"
+              className="control-btn successxd"
               onClick={() => {
                 controlarBomba(true);
                 setEstadoBomba(true);
@@ -42,7 +48,7 @@ const ControlTab = () => {
               ENCENDER
             </button>
             <button
-              className="control-btn danger"
+              className="control-btn dangerxd"
               onClick={() => {
                 controlarBomba(false);
                 setEstadoBomba(false);
@@ -69,7 +75,8 @@ const ControlTab = () => {
               {modoAutomatico === "true" ? "Activado" : "Desactivado"}
             </span>
           </div>
-          <h3>MODO DE OPERACION</h3>
+          <h3>MODO DE OPERACION <br /> OPCIONAL</h3>
+
           <p className="label-text">Modo Automático:</p>
           <div className="form-row">
             <select
@@ -77,8 +84,8 @@ const ControlTab = () => {
               onChange={(e) => setModoAutomatico(e.target.value)}
               className="control-select"
             >
-              <option value="true">Activado</option>
               <option value="false">Desactivado</option>
+              <option value="true">Activado</option>
             </select>
             <button
               className="control-btn success"

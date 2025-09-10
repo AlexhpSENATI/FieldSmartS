@@ -157,21 +157,37 @@
 
 /* Área de contenido */
 .content-area {
+  background-color: #E2E2E2;
+  border-radius: 14px;
+  padding: 32px;
+  margin-top: 20px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  height: calc(100vh - 120px);
+  overflow-y: auto;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.content-area::-webkit-scrollbar {
+  display: none;
+}
+
+/* .content-area {
   flex: 1;
   background-color: #E2E2E2;
   border-radius: 14px;
   padding: 32px;
-  margin-top: 20px; /* aumenta este valor para bajarlo más */
+  margin-top: 20px; 
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
   max-height: calc(100vh - 120px);
   overflow-y: auto;
-  scrollbar-width: none; /* Firefox */
-  -ms-overflow-style: none; /* IE 10+ */
+  scrollbar-width: none; 
+  -ms-overflow-style: none; 
 }
 
 .content-area::-webkit-scrollbar {
-  display: none; /* Chrome, Safari, Edge */
-}
+  display: none; 
+} */
 
 
 /* Título */
