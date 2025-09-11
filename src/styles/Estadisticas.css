@@ -1,0 +1,82 @@
+/* src/components/pages/Estadisticas.css */
+
+.estadisticas-container {
+  padding: 1rem;
+  max-width: none; /* Permitir expansión completa */
+  width: 100%;
+  margin: 0 auto;
+}
+
+.selector-container {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+  flex-wrap: wrap;
+}
+
+.selector-label {
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: #333;
+}
+
+.selector-input {
+  padding: 0.25rem 0.5rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 0.875rem;
+  background-color: white;
+}
+
+.card {
+  background-color: white;
+  border-radius: 1rem;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  padding: 1rem;
+  margin-top: 1rem;
+  width: 100%; /* Ocupa todo el ancho */
+  overflow: hidden; /* Evita desbordes */
+}
+
+.card-header {
+  margin-bottom: 0.5rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 1px solid #eee;
+}
+
+.card-title {
+  font-size: 1.125rem;
+  font-weight: 600;
+  color: #222;
+  margin: 0;
+}
+
+.card-content {
+  margin-top: 1rem;
+}
+
+.graficos-container {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.grafico-item {
+  flex: 1;
+  min-height: 300px;
+  width: 100%;
+  overflow: hidden; /* Importante: evita desbordamientos */
+}
+
+@media (min-width: 768px) {
+  .graficos-container {
+    flex-direction: row;
+  }
+
+  .grafico-item {
+    flex: 1;
+    min-height: 300px;
+    width: 100%;
+  }
+}

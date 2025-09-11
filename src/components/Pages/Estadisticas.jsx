@@ -2,6 +2,8 @@
 import React, { useContext, useState } from "react";
 import { EstadisticasContext, EstadisticasProvider } from "../../context/EstadisticasContext";
 import { Bar, Pie } from "react-chartjs-2";
+import "../../styles/Estadisticas.css";
+
 import {
   Chart as ChartJS,
   Title,
@@ -23,7 +25,6 @@ ChartJS.register(
   LinearScale
 );
 
-// ✅ Constantes
 const TIME_RANGES = {
   "10s": 10 * 1000,
   "5m": 5 * 60 * 1000,
@@ -51,7 +52,6 @@ const COLORS = [
   "rgba(255, 160, 90, 0.7)",  // Temperatura
 ];
 
-// ✅ Componente principal
 const EstadisticasComponente = () => {
   const { datos } = useContext(EstadisticasContext);
   const [rango, setRango] = useState("actual");
@@ -59,7 +59,6 @@ const EstadisticasComponente = () => {
 
   if (!datos || datos.length === 0) return <p className="text-gray-500">Cargando datos...</p>;
 
-  // ✅ Filtrar datos según rango
   const obtenerDatosFiltrados = () => {
     if (rango === "actual") {
       return [datos[datos.length - 1]];
@@ -72,7 +71,6 @@ const EstadisticasComponente = () => {
 
   const datosFiltrados = obtenerDatosFiltrados();
 
-  // ✅ Preparar datos para gráficos
   const prepararDatosGraficos = () => {
     if (rango === "actual") {
       const ultimo = datosFiltrados[0];
@@ -116,7 +114,6 @@ const EstadisticasComponente = () => {
       return { dataBar, dataPie };
     }
 
-    // Para rangos históricos
     const labels = datosFiltrados.map((d) => d.fechaHora.slice(11, 19));
     const valores = datosFiltrados.map((d) => d[metrica] || 0);
 
@@ -136,7 +133,6 @@ const EstadisticasComponente = () => {
 
   const { dataBar, dataPie } = prepararDatosGraficos();
 
-  // ✅ Opciones para evitar desbordamiento
   const barOptions = {
     responsive: true,
     maintainAspectRatio: false,
@@ -189,7 +185,6 @@ const EstadisticasComponente = () => {
 
   return (
     <div className="estadisticas-container">
-      {/* Selector de rango */}
       <div className="selector-container">
         <label className="selector-label">Rango:</label>
         <select
@@ -213,7 +208,6 @@ const EstadisticasComponente = () => {
         </select>
       </div>
 
-      {/* Selector de métrica */}
       {rango !== "actual" && (
         <div className="selector-container">
           <label className="selector-label">Métrica:</label>
@@ -229,7 +223,6 @@ const EstadisticasComponente = () => {
         </div>
       )}
 
-      {/* Gráficos */}
       <div className="card">
         <div className="card-header">
           <h2 className="card-title">
@@ -238,7 +231,6 @@ const EstadisticasComponente = () => {
         </div>
         <div className="card-content">
           <div className="graficos-container">
-            {/* Gráfico de barras */}
             <div className="grafico-item">
               <Bar
                 data={dataBar}
@@ -248,7 +240,6 @@ const EstadisticasComponente = () => {
               />
             </div>
 
-            {/* Gráfico de pastel solo si es "actual" */}
             {rango === "actual" && (
               <div className="grafico-item">
                 <Pie
