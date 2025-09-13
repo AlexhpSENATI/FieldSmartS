@@ -1,266 +1,190 @@
-// src/context/AppContext.jsx
-import React, { createContext, useState, useEffect, useRef } from 'react';
-// import { initializeApp } from 'firebase/app';
-// import { getDatabase, ref, push } from 'firebase/database';
-import { db } from "../firebase";
-import { ref, push } from "firebase/database";
+// AppContext.jsx (updated to import from firebase.js)
+import React, { createContext, useContext, useState, useEffect } from 'react';
+import { ref, onValue, update } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-database.js";
+import { db } from '../firebase'; // Import db from firebase.js
 
+const sensoresRef = ref(db, "sensores");
+const configRef = ref(db, "config");
 
-// Configuración de Firebase - Reemplaza con tus credenciales reales
-// const firebaseConfig = {
-//     apiKey: "AIzaSyBqlMrCp7cUcQ4xNGMPM_urU1UfXEOtEG8",
-//     authDomain: "smart-ceb0f.firebaseapp.com",
-//     databaseURL: "https://smart-ceb0f-default-rtdb.firebaseio.com",
-//     projectId: "smart-ceb0f",
-//     storageBucket: "smart-ceb0f.firebasestorage.app",
-//     messagingSenderId: "263148013514",
-//     appId: "1:263148013514:web:cfc1e2e434f16ae298f133",
-//     measurementId: "G-8P55Y4R9DR"
-// };
+const AppContext = createContext();
 
-// // Inicializar Firebase
-// const app = initializeApp(firebaseConfig);
-// const database = getDatabase(app);
-
-export const AppContext = createContext();
+export const useAppContext = () => {
+  const context = useContext(AppContext);
+  if (!context) {
+    throw new Error('useAppContext must be used within AppProvider');
+  }
+  return context;
+};
 
 export const AppProvider = ({ children }) => {
-    const [espIP, setEspIP] = useState(localStorage.getItem('esp-ip') || '192.168.1.100');
-    const [espPort, setEspPort] = useState(localStorage.getItem('esp-port') || '80');
-    const [connected, setConnected] = useState(false);
-    const [datos, setDatos] = useState({
-        temperatura: undefined,
-        humedadAmbiental: undefined,
-        humedad: undefined,
-        bomba: false,
-        automatico: false,
-        humedadMinima: undefined,
-        enEspera: false,
-        tiempoEsperaRestante: 0,
-        ultimoRiego: undefined,
-        timestamp: undefined,
-    });
-    const [intervaloActualizacion, setIntervaloActualizacion] = useState(2000);
-    const [logs, setLogs] = useState([]);
-    const [alerts, setAlerts] = useState([]);
-    const updateInterval = useRef(null);
-    const logContainerRef = useRef(null);
+  const [currentConfig, setCurrentConfig] = useState({});
+  const [espIPConectado, setEspIPConectado] = useState("");
+  const [conectado, setConectado] = useState(false);
+  const [temp, setTemp] = useState("--");
+  const [humAmb, setHumAmb] = useState("--");
+  const [humSuelo, setHumSuelo] = useState("--");
+  const [bomba, setBomba] = useState("--");
+  const [infoUmbralMin, setInfoUmbralMin] = useState("--");
+  const [infoIP, setInfoIP] = useState("--");
+  const [infoTiempoUso, setInfoTiempoUso] = useState("--");
+  const [infoUltimoRiego, setInfoUltimoRiego] = useState("--");
+  const [infoEnEspera, setInfoEnEspera] = useState("--");
+  const [infoTiempoEspera, setInfoTiempoEspera] = useState("--");
+  const [infoSistema, setInfoSistema] = useState("Inactivo ❌");
+  const [infoModo, setInfoModo] = useState("--");
 
-    useEffect(() => {
-        agregarLog('Sistema iniciado');
-        return () => {
-            if (updateInterval.current) clearInterval(updateInterval.current);
-        };
-    }, []);
+  const actualizarEstadoEspera = (data) => {
+    const enEsperaEstado = data.enEspera ? true : false;
+    setInfoEnEspera(enEsperaEstado ? "Sí" : "No");
 
-    const agregarLog = (msg) => {
-        const newLog = `[${new Date().toLocaleTimeString()}] ${msg}`;
-        setLogs((prev) => [...prev, newLog]);
-        if (logContainerRef.current) {
-            logContainerRef.current.scrollTop = logContainerRef.current.scrollHeight;
-        }
-    };
-
-    const mostrarAlerta = (mensaje, tipo) => {
-        const id = Math.random();
-        setAlerts((prev) => [...prev, { id, mensaje, tipo }]);
-        setTimeout(() => {
-            setAlerts((prev) => prev.filter((a) => a.id !== id));
-        }, 4000);
-    };
-
-    const handleConnect = () => {
-        if (!espIP) {
-            mostrarAlerta('Por favor, ingresa la IP del ESP8266', 'error');
-            return;
-        }
-        localStorage.setItem('esp-ip', espIP);
-        localStorage.setItem('esp-port', espPort);
-        if (updateInterval.current) clearInterval(updateInterval.current);
-        updateInterval.current = setInterval(obtenerDatos, intervaloActualizacion);
-        obtenerDatos();
-        agregarLog(`Intentando conectar a ${espIP}:${espPort}`);
-        mostrarAlerta('Intentando conectar con ESP8266...', 'warning');
-    };
-
-    const desconectarESP = () => {
-        if (updateInterval.current) {
-            clearInterval(updateInterval.current);
-            updateInterval.current = null;
-        }
-        setConnected(false);
-        agregarLog('Desconectado manualmente');
-        mostrarAlerta('Desconectado del ESP8266', 'error');
-    };
-
-    const obtenerDatos = async () => {
-        try {
-            const response = await fetch(`http://${espIP}:${espPort}/api/datos`, {
-                method: 'GET',
-                headers: { 'Content-Type': 'application/json' },
-                mode: 'cors',
-            });
-            if (!response.ok) throw new Error(`HTTP ${response.status}`);
-            const newDatos = await response.json();
-            setDatos(newDatos);
-            if (!connected) {
-                setConnected(true);
-                agregarLog(`✅ Conectado exitosamente a ${espIP}:${espPort}`);
-                mostrarAlerta('Conectado exitosamente', 'success');
-            }
-
-            // Guardar datos en Firebase Realtime Database en tiempo real
-
-            // const datosRef = ref(database, 'datos');
-
-            const datosRef = ref(db, 'datos');
-            const fechaHora = new Date().toISOString(); // Agregar fecha y hora actual en formato ISO
-            const datosAGuardar = {
-                ...newDatos,
-                fechaHora, // Incluir fecha, hora, año
-                bombaDuracion: newDatos.ultimoRiego || 0, // Duración de la bomba (asumiendo ultimoRiego es la duración)
-            };
-            push(datosRef, datosAGuardar)
-                .then(() => {
-                    agregarLog('Datos guardados en la base de datos en tiempo real');
-                })
-                .catch((error) => {
-                    agregarLog(`❌ Error al guardar datos en DB: ${error.message}`);
-                });
-
-        } catch (error) {
-            console.error('Error:', error);
-            if (connected) {
-                setConnected(false);
-                agregarLog(`❌ Error de conexión: ${error.message}`);
-                mostrarAlerta('Error de conexión', 'error');
-            }
-        }
-    };
-
-    const controlarBomba = async (encender) => {
-        try {
-            const response = await fetch(`http://${espIP}:${espPort}/api/bomba`, {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ estado: encender }),
-            });
-            if (!response.ok) throw new Error('Error HTTP');
-            agregarLog(encender ? 'Bomba ENCENDIDA' : 'Bomba APAGADA');
-            mostrarAlerta(`Bomba ${encender ? 'encendida' : 'apagada'}`, encender ? 'success' : 'error');
-            obtenerDatos();
-        } catch (err) {
-            agregarLog(`❌ Error al controlar bomba: ${err.message}`);
-            mostrarAlerta('Error al enviar comando', 'error');
-        }
-    };
-
-    const cambiarModo = async (modo) => {
-        try {
-            const response = await fetch(`http://${espIP}:${espPort}/api/config`, {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ automatico: modo }),
-            });
-            if (!response.ok) throw new Error('Error HTTP');
-            agregarLog(`Modo automático ${modo ? 'ACTIVADO' : 'DESACTIVADO'}`);
-            mostrarAlerta(`Modo automático ${modo ? 'activado' : 'desactivado'}`, 'warning');
-            obtenerDatos();
-        } catch (err) {
-            agregarLog(`❌ Error al cambiar modo: ${err.message}`);
-            mostrarAlerta('Error al cambiar modo', 'error');
-        }
-    };
-
-    const actualizarUmbral = async (umbral) => {
-        try {
-            const response = await fetch(`http://${espIP}:${espPort}/api/config`, {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ humedadMinima: parseInt(umbral) }),
-            });
-            if (!response.ok) throw new Error('Error HTTP');
-            agregarLog(`Umbral de humedad actualizado a ${umbral}%`);
-            mostrarAlerta(`Umbral actualizado a ${umbral}%`, 'success');
-            obtenerDatos();
-        } catch (err) {
-            agregarLog(`❌ Error al actualizar umbral: ${err.message}`);
-            mostrarAlerta('Error al actualizar umbral', 'error');
-        }
-    };
-
-    const actualizarIntervalo = (valor) => {
-        const newInterval = parseInt(valor) * 1000;
-        if (newInterval >= 1000) {
-            setIntervaloActualizacion(newInterval);
-            if (updateInterval.current) clearInterval(updateInterval.current);
-            updateInterval.current = setInterval(obtenerDatos, newInterval);
-            agregarLog(`Intervalo de actualización cambiado a ${valor} s`);
-            mostrarAlerta(`Intervalo: ${valor} segundos`, 'success');
-        } else {
-            mostrarAlerta('Intervalo inválido', 'error');
-        }
-    };
-
-    const limpiarHistorial = () => {
-        localStorage.clear();
-        agregarLog('Historial de configuración limpiado');
-        mostrarAlerta('Historial limpiado', 'warning');
-        setEspIP('192.168.1.100');
-        setEspPort('80');
-    };
-
-    const exportarDatos = () => {
-        const exportData = {
-            temperatura: datos.temperatura !== undefined ? datos.temperatura.toFixed(1) + '°C' : '--',
-            humedadAmbiental: datos.humedadAmbiental !== undefined ? datos.humedadAmbiental.toFixed(1) + '%' : '--',
-            humedadSuelo: datos.humedad !== undefined ? datos.humedad + '%' : '--',
-            umbral: datos.humedadMinima !== undefined ? datos.humedadMinima + '%' : '--',
-            ultimoRiego: datos.ultimoRiego !== undefined ? datos.ultimoRiego + ' s' : '--',
-            timestamp: datos.timestamp || '--',
-        };
-        const blob = new Blob([JSON.stringify(exportData, null, 2)], { type: 'application/json' });
-        const url = URL.createObjectURL(blob);
-        const a = document.createElement('a');
-        a.href = url;
-        a.download = 'datos_riego.json';
-        a.click();
-        URL.revokeObjectURL(url);
-        agregarLog('Datos exportados');
-        mostrarAlerta('Datos exportados en JSON', 'success');
-    };
-
-    const limpiarLogs = () => {
-        setLogs([]);
-        agregarLog('Logs limpiados');
-    };
-
-    return (
-        <AppContext.Provider
-            value={{
-                espIP,
-                setEspIP,
-                espPort,
-                setEspPort,
-                connected,
-                datos,
-                handleConnect,
-                desconectarESP,
-                controlarBomba,
-                cambiarModo,
-                actualizarUmbral,
-                actualizarIntervalo,
-                limpiarHistorial,
-                exportarDatos,
-                logs,
-                limpiarLogs,
-                logContainerRef,
-                agregarLog,
-                mostrarAlerta,
-                alerts,
-            }}
-        >
-            {children}
-        </AppContext.Provider>
+    setInfoTiempoEspera(
+      (enEsperaEstado && data.tiempoRestanteEspera !== undefined) ?
+        data.tiempoRestanteEspera + " s" :
+        (currentConfig.tiempoEspera || "--") + " s"
     );
+  };
+
+  // 🔹 Escuchar configuración en Firebase
+  useEffect(() => {
+    const unsubscribeConfig = onValue(configRef, (snapshot) => {
+      const cfg = snapshot.val();
+      if (cfg) {
+        setCurrentConfig(cfg);
+        setInfoModo(cfg.modoAutomatico ? "Automático 🤖" : "Manual ✋");
+      }
+    });
+    return () => unsubscribeConfig();
+  }, []);
+
+  // 🔹 Escuchar sensores cuando hay IP conectada
+  useEffect(() => {
+    if (!espIPConectado) {
+      // Reset states when disconnected
+      setTemp("--");
+      setHumAmb("--");
+      setHumSuelo("--");
+      setBomba("--");
+      setInfoUmbralMin("--");
+      setInfoIP("--");
+      setInfoTiempoUso("--");
+      setInfoUltimoRiego("--");
+      setInfoEnEspera("--");
+      setInfoTiempoEspera("--");
+      setInfoSistema("Inactivo ❌");
+      setConectado(false);
+      return;
+    }
+
+    setConectado(true);
+    setInfoSistema("Activo ✅"); // Set active on connect, update if no data?
+
+    const unsubscribeSensores = onValue(sensoresRef, (snapshot) => {
+      const data = snapshot.val();
+      if (data && data.ip === espIPConectado) {
+        setTemp(data.temperatura + " °C");
+        setHumAmb(data.humedadAmbiental + " %");
+        setHumSuelo(data.humedadSuelo + " %");
+        setBomba(data.bomba ? "💧 ENCENDIDA" : "💤 APAGADA");
+
+        setInfoUmbralMin(currentConfig.umbralMin || "--");
+        setInfoIP(data.ip || "--");
+        setInfoTiempoUso(data.tiempoUso || "--");
+        setInfoUltimoRiego(data.ultimoRiego ? new Date(data.ultimoRiego).toLocaleTimeString() : "--");
+
+        actualizarEstadoEspera(data);
+        setInfoSistema("Activo ✅");
+      } else {
+        // If no matching data, perhaps keep Activo or set warning, but for now, keep as is
+        // To match original, only set Activo if match
+        setInfoSistema("Activo ✅"); // Or check if snapshot exists but no match
+      }
+    });
+
+    return () => {
+      unsubscribeSensores();
+      // Reset on unmount or ip change
+      setTemp("--");
+      setHumAmb("--");
+      setHumSuelo("--");
+      setBomba("--");
+      setInfoUmbralMin("--");
+      setInfoIP("--");
+      setInfoTiempoUso("--");
+      setInfoUltimoRiego("--");
+      setInfoEnEspera("--");
+      setInfoTiempoEspera("--");
+    };
+  }, [espIPConectado, currentConfig]); // Depend on espIPConectado and currentConfig for umbralMin
+
+  // 🔹 Conectar ESP
+  const conectarESP = (ip) => {
+    if (!ip.trim()) {
+      alert("Por favor ingresa la IP del ESP.");
+      return;
+    }
+    setEspIPConectado(ip.trim());
+    alert("Conectado al ESP con IP: " + ip.trim());
+  };
+
+  // 🔹 Desconectar ESP
+  const desconectarESP = () => {
+    setEspIPConectado("");
+    alert("ESP Desconectado");
+  };
+
+  // 🔹 Guardar configuración
+  const guardarConfig = (umbralMin, umbralMax, tiempoRiego, tiempoEspera) => {
+    update(configRef, {
+      umbralMin: parseInt(umbralMin),
+      umbralMax: parseInt(umbralMax),
+      tiempoRiego: parseInt(tiempoRiego),
+      tiempoEspera: parseInt(tiempoEspera),
+    });
+  };
+
+  // 🔹 Cambiar modo desde select
+  const cambiarModo = (valor) => {
+    const nuevoEstado = valor === "true";
+
+    update(configRef, {
+      modoAutomatico: nuevoEstado
+    });
+
+    alert("Modo cambiado a: " + (nuevoEstado ? "✅ Automático 🤖" : "❌ Manual ✋"));
+  };
+
+  // 🔹 Control manual bomba
+  const controlBomba = (estado) => {
+    update(configRef, {
+      bombaManual: estado,
+      modoAutomatico: false
+    });
+  };
+
+  const value = {
+    // States
+    currentConfig,
+    espIPConectado,
+    conectado,
+    temp,
+    humAmb,
+    humSuelo,
+    bomba,
+    infoUmbralMin,
+    infoIP,
+    infoTiempoUso,
+    infoUltimoRiego,
+    infoEnEspera,
+    infoTiempoEspera,
+    infoSistema,
+    infoModo,
+    // Functions
+    conectarESP,
+    desconectarESP,
+    guardarConfig,
+    cambiarModo,
+    controlBomba,
+  };
+
+  return <AppContext.Provider value={value}>{children}</AppContext.Provider>;
 };

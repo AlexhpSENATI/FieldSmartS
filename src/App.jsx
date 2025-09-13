@@ -9,17 +9,17 @@ import { EstadisticasProvider } from "./context/EstadisticasContext";
 import Dashboard from './components/pages/Dashboard';
 import Estadisticas from './components/pages/Estadisticas';
 import Control from './components/pages/Control';
-import Configuracion from './components/pages/Configuracion';
-import Logs from './components/pages/Logs';
+// import Configuracion from './components/pages/Configuracion';
+// import Logs from './components/pages/Logs';
 
-import { iniciarMonitoreo } from "./notificaciones";
+// import { iniciarMonitoreo } from "./notificaciones";
 
 function App() {
   const [activeTab, setActiveTab] = useState('Dashboard');
 
-  useEffect(() => {
-    iniciarMonitoreo();
-  }, []);
+  // useEffect(() => {
+  //   iniciarMonitoreo();
+  // }, []);
 
   const renderContent = () => {
     switch (activeTab) {
