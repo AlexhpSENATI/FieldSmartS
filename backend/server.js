@@ -84,7 +84,6 @@ app.post(`/webhook/${TELEGRAM_TOKEN}`, express.json(), async (req, res) => {
           `⏱️ Uso: ${data.tiempoUso} seg\n` +
           `🕒 Último riego: ${data.ultimoRiego}`;
 
-        // OJO: aquí envío la respuesta al mismo chat que escribió
         const url = `https://api.telegram.org/bot${TELEGRAM_TOKEN}/sendMessage`;
         await fetch(url, {
           method: "POST",
