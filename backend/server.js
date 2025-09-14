@@ -7,7 +7,7 @@ import { ref, onValue, get } from "firebase/database";
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-const TELEGRAM_TOKEN = "TU_TOKEN_AQUI";
+const TELEGRAM_TOKEN = "8331662552:AAFCtkTjZJyBDGFqcwXJ4Nl6gpNG65MOOUs";
 const CHAT_ID = "6588607200"; 
 
 // =================================FUNCIONES AUXILIARES=================================
