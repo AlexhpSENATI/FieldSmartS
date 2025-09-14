@@ -9,8 +9,8 @@ app.use(express.json());
 
 const PORT = process.env.PORT || 3000;
 
-const TELEGRAM_TOKEN = "TU_TOKEN";
-const CHAT_ID = "TU_CHAT_ID"; 
+const TELEGRAM_TOKEN = "8331662552:AAFCtkTjZJyBDGFqcwXJ4Nl6gpNG65MOOUs";
+const CHAT_ID = "6588607200"; 
 
 // =================================FUNCIONES AUXILIARES=================================
 async function sendTelegramMessage(chatId, text) {

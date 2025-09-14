@@ -2,6 +2,7 @@
 import React, { useState, useEffect } from 'react';
 import { useAppContext } from './../../context/AppContext';
 
+// Componente para la página de Control
 const Control = () => {
   const [umbralMin, setUmbralMin] = useState(0);
   const [umbralMax, setUmbralMax] = useState(0);
