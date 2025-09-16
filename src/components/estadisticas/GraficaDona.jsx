@@ -206,14 +206,14 @@ export default function GraficasEstadisticas() {
         <h2 className="donas-card-title">Donas - {rango === "7d" ? "Por día de la semana" : "Por mes"}</h2>
       </div> */}
       {/*=====================================GRAFICO DE DONAS====================================== */}
-      <div className="donas-card">
+      {/* <div className="donas-card">
 
         <div className="donas-card-content donas-flex">
           <div className="donas-item"><Doughnut data={prepararDona("temperatura")} options={chartOptions} height={250} /></div>
           <div className="donas-item"><Doughnut data={prepararDona("humedadSuelo")} options={chartOptions} height={250} /></div>
           <div className="donas-item"><Doughnut data={prepararDona("humedadAmbiental")} options={chartOptions} height={250} /></div>
         </div>
-      </div>
+      </div> */}
       <div className="donas-card-header">
         <h2 className="donas-card-title">Barras - Promedio, Máximo y Mínimo</h2>
       </div>

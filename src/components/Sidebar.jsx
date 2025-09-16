@@ -1,3 +1,199 @@
+import React from "react";
+import { NavLink, useNavigate } from "react-router-dom";
+import {
+  FaHome,
+  FaChartBar,
+  FaCogs,
+  FaWrench,
+  FaClipboardList,
+} from "react-icons/fa";
+import { MdLogout } from "react-icons/md";
+import { useAuth } from "../context/AuthContext";
+
+const Sidebar = () => {
+  const navigate = useNavigate();
+  const { logout } = useAuth();
+
+  const handleLogout = () => {
+    logout();
+    navigate("/Inicio");
+  };
+
+  const menuItems = [
+    { path: "/dashboard", label: "Dashboard", icon: FaHome },
+    { path: "/estadisticas", label: "Estadísticas", icon: FaChartBar },
+    { path: "/control", label: "Control", icon: FaCogs },
+    { path: "/configuracion", label: "Configuración", icon: FaWrench },
+    { path: "/logs", label: "Logs", icon: FaClipboardList },
+  ];
+
+  return (
+    <div className="sidebar">
+      {/*=============================LOGO SIDEBAR=====================   */}
+      <div className="logo-container">
+        <div className="logo">
+          <FaHome color="#121212" size={24} />
+        </div>
+        <div className="brand-name">FIELDSMART</div>
+      </div>
+
+      {/*=============================MENU============================= */}
+      <ul className="nav-menu">
+        {menuItems.map((item) => {
+          const Icon = item.icon;
+          return (
+            <li key={item.path}>
+              <NavLink
+                to={item.path}
+                className={({ isActive }) =>
+                  `nav-item ${isActive ? "active" : ""}`
+                }
+              >
+                <Icon size={16} />
+                <span>{item.label}</span>
+              </NavLink>
+            </li>
+          );
+        })}
+      </ul>
+
+      {/*=============================BOTON CERRAR============================= */}
+      <button className="logout-btn" onClick={handleLogout}>
+        <MdLogout size={14} />
+        <span>Cerrar</span>
+      </button>
+    </div>
+  );
+};
+
+export default Sidebar;
+
+// import React from "react";
+// import { NavLink, useNavigate } from "react-router-dom";
+// import {
+//   FaHome,
+//   FaChartBar,
+//   FaCogs,
+//   FaWrench,
+//   FaClipboardList,
+// } from "react-icons/fa";
+// import { MdLogout } from "react-icons/md";
+// import { useAuth } from "../context/AuthContext"; // importa tu contexto
+
+// const Sidebar = () => {
+//   const navigate = useNavigate();
+//   const { logout } = useAuth(); // función de logout del contexto
+
+//   // Acción al cerrar sesión
+//   const handleLogout = () => {
+//     logout(); // limpia el usuario del contexto
+//     navigate("/login"); // redirige al login
+//   };
+
+//   const menuItems = [
+//     { path: "/dashboard", label: "Dashboard", icon: FaHome },
+//     { path: "/estadisticas", label: "Estadísticas", icon: FaChartBar },
+//     { path: "/control", label: "Control", icon: FaCogs },
+//     { path: "/configuracion", label: "Configuración", icon: FaWrench },
+//     { path: "/logs", label: "Logs", icon: FaClipboardList },
+//   ];
+
+//   return (
+//     <div className="sidebar">
+//       {/* Logo */}
+//       <div className="logo-container">
+//         <div className="logo">
+//           <FaHome color="#121212" size={24} />
+//         </div>
+//         <div className="brand-name">FIELDSMART</div>
+//       </div>
+
+//       {/* Menú de navegación */}
+//       <ul className="nav-menu">
+//         {menuItems.map((item) => {
+//           const Icon = item.icon;
+//           return (
+//             <li key={item.path}>
+//               <NavLink
+//                 to={item.path}
+//                 className={({ isActive }) =>
+//                   `nav-item ${isActive ? "active" : ""}`
+//                 }
+//               >
+//                 <Icon size={16} />
+//                 <span>{item.label}</span>
+//               </NavLink>
+//             </li>
+//           );
+//         })}
+//       </ul>
+
+//       {/* Botón de cierre */}
+//       <button className="logout-btn" onClick={handleLogout}>
+//         <MdLogout size={14} />
+//         <span>Cerrar</span>
+//       </button>
+//     </div>
+//   );
+// };
+
+// export default Sidebar;
+
+// import React from "react";
+// import { NavLink } from "react-router-dom";
+// import { FaHome, FaChartBar, FaCogs, FaWrench, FaClipboardList } from "react-icons/fa";
+// import { MdLogout } from "react-icons/md";
+
+// const Sidebar = () => {
+//   const menuItems = [
+//     { path: "/dashboard", label: "Dashboard", icon: FaHome },
+//     { path: "/estadisticas", label: "Estadísticas", icon: FaChartBar },
+//     { path: "/control", label: "Control", icon: FaCogs },
+//     { path: "/configuracion", label: "Configuración", icon: FaWrench },
+//     { path: "/logs", label: "Logs", icon: FaClipboardList },
+//   ];
+
+//   return (
+//     <div className="sidebar">
+//       {/* Logo */}
+//       <div className="logo-container">
+//         <div className="logo">
+//           <FaHome color="#121212" size={24} />
+//         </div>
+//         <div className="brand-name">FIELDSMART</div>
+//       </div>
+
+//       {/* Menú de navegación */}
+//       <ul className="nav-menu">
+//         {menuItems.map((item) => {
+//           const Icon = item.icon;
+//           return (
+//             <li key={item.path}>
+//               <NavLink
+//                 to={item.path}
+//                 className={({ isActive }) =>
+//                   `nav-item ${isActive ? "active" : ""}`
+//                 }
+//               >
+//                 <Icon size={16} />
+//                 <span>{item.label}</span>
+//               </NavLink>
+//             </li>
+//           );
+//         })}
+//       </ul>
+
+//       {/* Botón de cierre */}
+//       <button className="logout-btn">
+//         <MdLogout size={14} />
+//         <span>Cerrar</span>
+//       </button>
+//     </div>
+//   );
+// };
+
+// export default Sidebar;
+
 
 // import React from 'react';
 
@@ -47,59 +243,59 @@
 
 // export default Sidebar;
 // src/components/Sidebar.js
-import React from 'react';
+// import React from 'react';
 
-// Importamos los íconos que necesitamos
-import { FaHome, FaChartBar, FaCogs, FaWrench, FaClipboardList } from 'react-icons/fa';
-import { MdLogout } from 'react-icons/md';
+// // Importamos los íconos que necesitamos
+// import { FaHome, FaChartBar, FaCogs, FaWrench, FaClipboardList } from 'react-icons/fa';
+// import { MdLogout } from 'react-icons/md';
 
-const Sidebar = ({ activeTab, onTabChange }) => {
-  const menuItems = [
-    { id: 'Dashboard', label: 'Dashboard', icon: FaHome },
-    { id: 'Estadisticas', label: 'Estadísticas', icon: FaChartBar },
-    { id: 'Control', label: 'Control', icon: FaCogs },
-    { id: 'Configuracion', label: 'Configuración', icon: FaWrench },
-    { id: 'Logs', label: 'Logs', icon: FaClipboardList },
-  ];
+// const Sidebar = ({ activeTab, onTabChange }) => {
+//   const menuItems = [
+//     { id: 'Dashboard', label: 'Dashboard', icon: FaHome },
+//     { id: 'Estadisticas', label: 'Estadísticas', icon: FaChartBar },
+//     { id: 'Control', label: 'Control', icon: FaCogs },
+//     { id: 'Configuracion', label: 'Configuración', icon: FaWrench },
+//     { id: 'Logs', label: 'Logs', icon: FaClipboardList },
+//   ];
 
-  return (
-    <div className="sidebar">
-      {/* Logo */}
-      <div className="logo-container">
-        <div className="logo">
-          <FaHome color="#121212" size={24} />
-        </div>
-        <div className="brand-name">FIELDSMART</div>
-      </div>
+//   return (
+//     <div className="sidebar">
+//       {/* Logo */}
+//       <div className="logo-container">
+//         <div className="logo">
+//           <FaHome color="#121212" size={24} />
+//         </div>
+//         <div className="brand-name">FIELDSMART</div>
+//       </div>
 
-      {/* Menú de navegación */}
-      <ul className="nav-menu">
-        {menuItems.map((item) => {
-          const Icon = item.icon;
-          return (
-            <li key={item.id}>
-              <div
-                className={`nav-item ${activeTab === item.id ? 'active' : ''}`}
-                onClick={() => onTabChange(item.id)}
-              >
-                <Icon size={16} />
-                <span>{item.label}</span>
-              </div>
-            </li>
-          );
-        })}
-      </ul>
+//       {/* Menú de navegación */}
+//       <ul className="nav-menu">
+//         {menuItems.map((item) => {
+//           const Icon = item.icon;
+//           return (
+//             <li key={item.id}>
+//               <div
+//                 className={`nav-item ${activeTab === item.id ? 'active' : ''}`}
+//                 onClick={() => onTabChange(item.id)}
+//               >
+//                 <Icon size={16} />
+//                 <span>{item.label}</span>
+//               </div>
+//             </li>
+//           );
+//         })}
+//       </ul>
 
-      {/* Botón de cierre (siempre abajo) */}
-      <button className="logout-btn">
-        <MdLogout size={14} />
-        <span>Cerrar</span>
-      </button>
-    </div>
-  );
-};
+//       {/* Botón de cierre (siempre abajo) */}
+//       <button className="logout-btn">
+//         <MdLogout size={14} />
+//         <span>Cerrar</span>
+//       </button>
+//     </div>
+//   );
+// };
 
-export default Sidebar;
+// export default Sidebar;
 
 // import React from "react";
 // import { NavLink } from "react-router-dom";
