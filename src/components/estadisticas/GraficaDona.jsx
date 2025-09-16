@@ -63,9 +63,9 @@ function parseFecha(d) {
 export default function GraficasEstadisticas() {
   const { datos } = useContext(EstadisticasContext);
   const [rango, setRango] = useState("7d");
-  const [orden, setOrden] = useState("default"); // filtro de orden
+  const [orden, setOrden] = useState("default");
 
-  if (!datos || datos.length === 0) return <p className="text-gray-500">Cargando datos...</p>;
+  if (!datos || datos.length === 0) return <p className="text-gray-500"></p>;
 
   const obtenerDatosFiltrados = () => {
     const ahora = Date.now();
@@ -123,10 +123,9 @@ export default function GraficasEstadisticas() {
   let labels = rango === "7d" ? WEEK_DAYS : MONTHS;
   const colors = rango === "7d" ? COLORS_DAYS : COLORS_MONTHS;
 
-  // Ordenar labels según filtro
   if (orden !== "default") {
     labels = [...labels].sort((a, b) => {
-      const valA = agrupado[a].temperatura; // 🔥 puedes cambiar por otra métrica si lo deseas
+      const valA = agrupado[a].temperatura;
       const valB = agrupado[b].temperatura;
       return orden === "desc" ? valB - valA : valA - valB;
     });
@@ -160,7 +159,7 @@ export default function GraficasEstadisticas() {
 
   return (
     <div className="donas-container">
-      
+
       <br />
       <div className="card-header-donas">
         <h2 className="card-title">
@@ -168,8 +167,9 @@ export default function GraficasEstadisticas() {
             ? "Estado actual de"
             : `Evolución de `}
         </h2>
-       
+
       </div>
+      {/*============================CONTROLES================================== */}
 
       <div className="controls-donas">
         <div className="control-group-donas">
@@ -205,6 +205,7 @@ export default function GraficasEstadisticas() {
       {/* <div className="donas-card-header">
         <h2 className="donas-card-title">Donas - {rango === "7d" ? "Por día de la semana" : "Por mes"}</h2>
       </div> */}
+      {/*=====================================GRAFICO DE DONAS====================================== */}
       <div className="donas-card">
 
         <div className="donas-card-content donas-flex">
@@ -216,7 +217,7 @@ export default function GraficasEstadisticas() {
       <div className="donas-card-header">
         <h2 className="donas-card-title">Barras - Promedio, Máximo y Mínimo</h2>
       </div>
-      {/* Barras */}
+      {/*=====================================GRAFICO DE BARRAS====================================== */}
       <div className="donas-card">
 
         <div className="donas-card-content donas-flex">

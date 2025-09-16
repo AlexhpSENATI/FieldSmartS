@@ -10,8 +10,9 @@ import { db } from "../firebase";
 const sensoresRef = ref(db, "sensores");
 const configRef = ref(db, "config");
 
-const AppContext = createContext();
-
+// const AppContext = createContext();
+// 👉 Exportamos AppContext para que esté disponible en cualquier archivo
+export const AppContext = createContext();
 export const useAppContext = () => {
   const context = useContext(AppContext);
   if (!context) {

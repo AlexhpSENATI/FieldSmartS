@@ -11,7 +11,7 @@ import { EstadisticasProvider } from "./context/EstadisticasContext";
 import Dashboard from './components/pages/Dashboard';
 import Estadisticas from './components/pages/Estadisticas';
 import Control from './components/pages/Control';
-// import Configuracion from './components/pages/Configuracion';
+import Configuracion from './components/pages/Configuracion';
 // import Logs from './components/pages/Logs';
 
 // import { iniciarMonitoreo } from "./notificaciones";
