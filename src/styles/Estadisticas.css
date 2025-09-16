@@ -1,11 +1,11 @@
 /* src/components/pages/Estadisticas.css */
 
-.estadisticas-container {
+/* .estadisticas-container {
   padding: 1rem;
-  max-width: none; /* Permitir expansión completa */
+  max-width: none; 
   width: 100%;
   margin: 0 auto;
-}
+} */
 
 .selector-container {
   display: flex;

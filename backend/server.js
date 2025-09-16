@@ -1,7 +1,7 @@
 // backend/server.js
 import express from "express";
 import fetch from "node-fetch";
-import { db } from "./firebase.js"; 
+import { db } from "./firebase.js";
 import { ref, onValue, get } from "firebase/database";
 
 const app = express();
@@ -11,11 +11,11 @@ const TELEGRAM_TOKEN = "8331662552:AAFCtkTjZJyBDGFqcwXJ4Nl6gpNG65MOOUs";
 const DEFAULT_CHAT_ID = "6588607200";
 
 if (!TELEGRAM_TOKEN) {
-  console.error("❌ TELEGRAM_TOKEN no definido. Pon tu token en el archivo o en variables de entorno.");
+  console.error(" TELEGRAM_TOKEN no definido. Pon tu token en el archivo o en variables de entorno.");
   process.exit(1);
 }
 
-app.use(express.json({ limit: "100kb" })); 
+app.use(express.json({ limit: "100kb" }));
 
 // =========================== TELEGRAM ===========================
 async function sendTelegramMessage(text, chatId = DEFAULT_CHAT_ID) {
@@ -40,7 +40,7 @@ async function sendTelegramMessage(text, chatId = DEFAULT_CHAT_ID) {
 
     const data = await res.json();
     if (!data.ok) {
-      console.error("❌ Telegram API error:", data);
+      console.error(" Telegram API error:", data);
     } else {
       console.log(`✅ Mensaje enviado a chat ${chatId}`);
     }
@@ -63,7 +63,7 @@ onValue(sensoresRef, (snapshot) => {
     if (data.bomba !== ultimoEstadoBomba) {
       ultimoEstadoBomba = data.bomba;
 
-      const estadoTexto = data.bomba ? "🚰 Bomba ENCENDIDA" : "✅ Bomba APAGADA";
+      const estadoTexto = data.bomba ? "✅ Bomba ENCENDIDA" : "❌ Bomba APAGADA";
       const mensaje =
         `${estadoTexto}\n\n` +
         `🌡️ Temp: ${data.temperatura ?? "N/A"}°C\n` +
@@ -99,7 +99,7 @@ app.post("/webhook", async (req, res) => {
         const snapshot = await get(sensoresRef);
         if (snapshot.exists()) {
           const data = snapshot.val();
-          const estadoBomba = data.bomba ? "🚰 ENCENDIDA" : "✅ APAGADA";
+          const estadoBomba = data.bomba ? "✅ ENCENDIDA" : "❌ APAGADA";
 
           const respuesta =
             `📡 Datos en tiempo real:\n` +
@@ -143,12 +143,11 @@ process.on("uncaughtException", (err) => {
 process.on("unhandledRejection", (reason) => {
   console.error("unhandledRejection:", reason);
 });
-
+// =========================== INICIO SERVIDOR  ===========================
 const server = app.listen(PORT, () => {
   console.log(`✅ Servidor escuchando en puerto ${PORT}`);
   console.log(`🌐 Webhook endpoint: /webhook`);
 });
-
 
 const shutdown = () => {
   console.log("🔌 Cerrando servidor...");

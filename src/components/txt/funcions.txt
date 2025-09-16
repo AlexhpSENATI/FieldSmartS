@@ -1,11 +1,7 @@
 // AppContext.jsx (updated to import from firebase.js)
 import React, { createContext, useContext, useState, useEffect } from 'react';
-// import { ref, onValue, update } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-database.js";
-// import { db } from '../firebase'; // Import db from firebase.js
-
-import { ref, onValue, update } from "firebase/database";
-import { db } from "../firebase";
-
+import { ref, onValue, update } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-database.js";
+import { db } from '../firebase'; // Import db from firebase.js
 
 const sensoresRef = ref(db, "sensores");
 const configRef = ref(db, "config");
@@ -54,7 +50,7 @@ export const AppProvider = ({ children }) => {
       const cfg = snapshot.val();
       if (cfg) {
         setCurrentConfig(cfg);
-        setInfoModo(cfg.modoAutomatico ? "Automático " : "Manual ");
+        setInfoModo(cfg.modoAutomatico ? "Automático 🤖" : "Manual ✋");
       }
     });
     return () => unsubscribeConfig();
@@ -85,9 +81,9 @@ export const AppProvider = ({ children }) => {
     const unsubscribeSensores = onValue(sensoresRef, (snapshot) => {
       const data = snapshot.val();
       if (data && data.ip === espIPConectado) {
-        setTemp(data.temperatura + "");
-        setHumAmb(data.humedadAmbiental + "");
-        setHumSuelo(data.humedadSuelo + "");
+        setTemp(data.temperatura + " °C");
+        setHumAmb(data.humedadAmbiental + " %");
+        setHumSuelo(data.humedadSuelo + " -");
         setBomba(data.bomba ? " ENCENDIDA" : " APAGADA");
 
         setInfoUmbralMin(currentConfig.umbralMin || "--");
@@ -96,10 +92,11 @@ export const AppProvider = ({ children }) => {
         setInfoUltimoRiego(data.ultimoRiego ? new Date(data.ultimoRiego).toLocaleTimeString() : "--");
 
         actualizarEstadoEspera(data);
-        setInfoSistema("Activo ");
+        setInfoSistema("Activo ✅");
       } else {
-
-        setInfoSistema("Activo "); // Or check if snapshot exists but no match
+        // If no matching data, perhaps keep Activo or set warning, but for now, keep as is
+        // To match original, only set Activo if match
+        setInfoSistema("Activo ✅"); // Or check if snapshot exists but no match
       }
     });
 
@@ -153,7 +150,7 @@ export const AppProvider = ({ children }) => {
       modoAutomatico: nuevoEstado
     });
 
-    alert("Modo cambiado a: " + (nuevoEstado ? "✅ Automático " : " Manual "));
+    alert("Modo cambiado a: " + (nuevoEstado ? "✅ Automático 🤖" : "❌ Manual ✋"));
   };
 
   // 🔹 Control manual bomba

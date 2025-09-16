@@ -1,209 +1,334 @@
-/* // .dash-container {
-//   padding: 1rem;
-//   font-family: 'Segoe UI', sans-serif;
-//   background-color: #f9fafb;
-//   border-radius: 16px;
-//   box-shadow: 0 4px 20px rgba(0,0,0,0.05);
-//   max-width: 1200px;
-//   margin: auto;
-// } */
+/* Dashboard.css - Versión Multicolor con Iconos Bootstrap */
+@import url("https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css");
 
-.dash-card {
-    background: white;
-    border-radius: 12px;
-    padding: 1.2rem;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
-    margin-bottom: 1.5rem;
+
+/* .dashboard-container {
+  padding: 20px;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-color: #121212;
+  min-height: 100vh;
+  color: #e0e0e0;
+} */
+
+.dashboard-header {
+  text-align: center;
+  margin-bottom: 30px;
+  color: #ffffff;
 }
 
-.dash-connection-card h3 {
-    margin: 0 0 1rem 0;
-    font-size: 1.1rem;
-    font-weight: 600;
-    color: #1a1a1a;
-    letter-spacing: 0.5px;
-    text-transform: uppercase;
+.dashboard-header h1 {
+  font-weight: 600;
+  margin-bottom: 5px;
+  font-size: 2.2rem;
+  background: linear-gradient(45deg, #00b4db, #0083b0);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
 }
 
-.dash-form-row {
-    display: flex;
-    gap: 1rem;
-    align-items: center;
-    flex-wrap: wrap;
+.dashboard-header p {
+  color: #a0a0a0;
+  font-size: 1.1rem;
 }
 
-.dash-form-group {
-    flex: 1;
-    min-width: 200px;
+/* Connection Section */
+.dashboard-connection {
+  background: linear-gradient(145deg, #1a1a2e, #16213e);
+  border-radius: 10px;
+  padding: 20px;
+  margin-bottom: 25px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
+  border: 1px solid #2a2a4a;
 }
 
-.dash-form-group label {
-    display: block;
-    margin-bottom: 0.5rem;
-    font-size: 0.9rem;
-    font-weight: 500;
-    color: #333;
-    text-transform: uppercase;
+.dashboard-connection h2 {
+  color: #00b4db;
+  margin-bottom: 15px;
 }
 
-.dash-input-text {
-    width: 100%;
-    padding: 0.6rem;
-    border: 1px solid #ddd;
-    border-radius: 8px;
-    font-size: 0.95rem;
-    transition: border-color 0.2s;
+.connection-controls {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 15px;
+  flex-wrap: wrap;
 }
 
-.dash-input-text:focus {
-    outline: none;
-    border-color: #007bff;
+.connection-input {
+  flex: 1;
+  padding: 12px 15px;
+  border: 1px solid #444;
+  border-radius: 5px;
+  min-width: 200px;
+  background-color: #2a2a2a;
+  color: #fff;
 }
 
-.dash-btn-group {
-    display: flex;
-    gap: 0.5rem;
-    margin-top: 1rem;
+.connection-input:focus {
+  outline: none;
+  border-color: #00b4db;
+  box-shadow: 0 0 0 2px rgba(0, 180, 219, 0.3);
 }
 
-.dash-btn {
-    padding: 0.6rem 1.4rem;
-    border: none;
-    border-radius: 20px;
-    font-size: 0.95rem;
-    font-weight: 600;
-    cursor: pointer;
-    transition: background-color 0.2s;
+.btn {
+  padding: 12px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-weight: 500;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  gap: 8px;
 }
 
-.dash-btn-primary {
-    background-color: #00264d;
-    color: white;
+.btn-connect {
+  background-color: #00c853;
+  color: white;
 }
 
-.dash-btn-secondary {
-    background-color: #2c3e50;
-    color: white;
+.btn-connect:hover {
+  background-color: #009624;
+  transform: translateY(-2px);
 }
 
-.dash-cards-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 1rem;
-    margin-top: 1rem;
+.btn-disconnect {
+  background-color: #ff3d00;
+  color: white;
 }
 
-.dash-metric-card {
-    display: flex;
-    align-items: center;
-    gap: 1rem;
-    padding: 1rem;
-    background: white;
-    border-radius: 20px;
-    /* width: 340px; */
-    height: 160px; 
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+.btn-disconnect:hover {
+  background-color: #dd2c00;
+  transform: translateY(-2px);
 }
 
-.dash-metric-icon {
-    width: 78px;
-    height: 78px;
-    border-radius: 50%;
-    background-color: #b7e9b7;  
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
-    
+.connection-status {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-weight: 500;
+  color: #b6b8b6;
 }
 
-.dash-metric-value {
-    margin: 0;
-    font-size: 1.9rem;
-    font-weight: 700;
-    color: #333;
+.status-indicator {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  display: inline-block;
 }
 
-.dash-metric-label {
-    margin: 0;
-    font-size: 0.95rem;
-    color: #666;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
+.status-indicator.connected {
+  background-color: #00c853;
+  box-shadow: 0 0 8px #00c853;
 }
 
-.dash-detail-section {
-    display: flex;
-    gap: 1px;
-    margin-top: 1rem;
-    background: white;
-    border-radius: 12px;
-    overflow: hidden;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+.status-indicator.disconnected {
+  background-color: #ff3d00;
+  box-shadow: 0 0 8px #ff3d00;
 }
 
-.dash-detail-column {
-    flex: 1;
-    padding: 1rem;
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
+/* Sensors Section */
+.dashboard-sensors {
+  margin-bottom: 25px;
 }
 
-.dash-detail-item {
-    display: flex;
-    align-items: center;
-    gap: 0.8rem;
+.dashboard-sensors h2 {
+  color: #00b4db;
+  margin-bottom: 20px;
+  font-size: 1.5rem;
 }
 
-.dash-detail-icon {
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
-    background-color: #e8f5e8;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+.sensors-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 20px;
 }
 
-.dash-detail-label {
-    font-size: 0.8rem;
-    color: #666;
-    margin: 0;
-    line-height: 1.2;
+.sensor-card {
+  border-radius: 12px;
+  padding: 20px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  transition: all 0.3s ease;
+  border: 1px solid;
 }
 
-.dash-detail-value {
-    margin: 0;
-    font-size: 1.3rem;
-    font-weight: 700;
-    color: #333;
+.sensor-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 25px rgba(0, 180, 219, 0.2);
 }
 
-.dash-divider {
-    width: 1px;
-    height: 100%;
-    background-color: #ddd;
+/* Tarjeta de Temperatura - Rojo/Naranja */
+.temp-card {
+  background: linear-gradient(145deg, #2d0b0b, #421212);
+  border-color: #e74c3c;
 }
 
+/* Tarjeta de Humedad Ambiental - Celeste/Azul */
+.hum-amb-card {
+  background: linear-gradient(145deg, #0b2d3a, #124252);
+  border-color: #3498db;
+}
+
+/* Tarjeta de Humedad del Suelo - Verde */
+.hum-suelo-card {
+  background: linear-gradient(145deg, #0b2d1a, #124226);
+  border-color: #2ecc71;
+}
+
+/* Tarjeta de Bomba - Azul/Violeta */
+.pump-card {
+  background: linear-gradient(145deg, #0b1b3a, #122752);
+  border-color: #3498db;
+}
+
+/* Tarjeta de Sistema - Verde/Rojo */
+.system-card {
+  background: linear-gradient(145deg, #0b2d15, #12421d);
+  border-color: #2ecc71;
+}
+
+/* Tarjeta de Modo - Amarillo/Naranja */
+.mode-card {
+  background: linear-gradient(145deg, #3a2d0b, #524312);
+  border-color: #f1c40f;
+}
+
+.sensor-info h3 {
+  margin: 0 0 5px 0;
+  color: #e0e0e0;
+  font-size: 1rem;
+}
+
+.sensor-value {
+  margin: 0;
+  font-size: 1.5rem;
+  font-weight: 600;
+}
+
+.sensor-threshold {
+  margin: 5px 0 0 0;
+  font-size: 0.8rem;
+  color: #a0a0a0;
+}
+
+.status.active {
+  color: #2ecc71;
+  font-weight: 600;
+}
+
+.status.inactive {
+  color: #e74c3c;
+  font-weight: 600;
+}
+
+/* Additional Info Section */
+.dashboard-additional {
+  margin-bottom: 25px;
+}
+
+.dashboard-additional h2 {
+  color: #00b4db;
+  margin-bottom: 20px;
+  font-size: 1.5rem;
+}
+
+.additional-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 20px;
+}
+
+.info-card {
+  border-radius: 12px;
+  padding: 20px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
+  text-align: center;
+  transition: all 0.3s ease;
+  border: 1px solid;
+}
+
+.info-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 25px rgba(0, 180, 219, 0.2);
+}
+
+/* Tarjeta Umbral - Azul */
+.umbral-card {
+  background: linear-gradient(145deg, #0b1b3a, #122752);
+  border-color: #3498db;
+}
+
+/* Tarjeta Espera - Naranja/Verde */
+.espera-card {
+  background: linear-gradient(145deg, #3a240b, #523512);
+  border-color: #f39c12;
+}
+
+/* Tarjeta Tiempo - Amarillo */
+.tiempo-card {
+  background: linear-gradient(145deg, #3a330b, #524712);
+  border-color: #f1c40f;
+}
+
+/* Tarjeta Riego - Celeste */
+.riego-card {
+  background: linear-gradient(145deg, #0b2d3a, #124252);
+  border-color: #00b4db;
+}
+
+/* Tarjeta IP - Verde Azulado */
+.ip-card {
+  background: linear-gradient(145deg, #0b3a32, #125246);
+  border-color: #1abc9c;
+}
+
+/* Tarjeta Uso - Violeta */
+.uso-card {
+  background: linear-gradient(145deg, #2a0b3a, #3c1252);
+  border-color: #9b59b6;
+}
+
+.info-icon {
+  width: 50px;
+  height: 50px;
+  margin: 0 auto 15px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.info-card h3 {
+  margin: 0 0 10px 0;
+  color: #e0e0e0;
+  font-size: 1rem;
+}
+
+.info-card p {
+  margin: 0;
+  font-size: 1.1rem;
+  color: #ffffff;
+  font-weight: 500;
+}
+
+/* Responsive adjustments */
 @media (max-width: 768px) {
-    .dash-form-row {
-        flex-direction: column;
-    }
-
-    .dash-btn-group {
-        flex-direction: column;
-    }
-
-    .dash-cards-grid {
-        grid-template-columns: 1fr;
-    }
-
-    .dash-detail-section {
-        flex-direction: column;
-    }
-
-    .dash-divider {
-        display: none;
-    }
+  .connection-controls {
+    flex-direction: column;
+  }
+  
+  .connection-input {
+    min-width: auto;
+  }
+  
+  .sensors-grid,
+  .additional-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .sensor-card {
+    flex-direction: column;
+    text-align: center;
+  }
 }

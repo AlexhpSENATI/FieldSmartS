@@ -24,13 +24,13 @@ export default function Header() {
       {/* CSS en el mismo archivo */}
       <style>{`
         .custom-header-987 {
-          background-color: #16181c;
+          background-color: #121212;
           padding: 0 1rem;
           display: flex;
           justify-content: space-between;
           align-items: center;
           border-radius: 0.75rem;
-          height: 80px;              /* 🔒 Alto fijo */
+          height: 80px;              
           min-height: 60px;
           box-sizing: border-box;
           position: sticky;
@@ -46,7 +46,7 @@ export default function Header() {
           padding: 0 0.8rem;
           border-radius: 999px;
           width: 280px;
-          height: 36px;              /* 🔒 Altura fija */
+          height: 36px;              
           box-sizing: border-box;
         }
 
@@ -77,7 +77,7 @@ export default function Header() {
           border: none;
           border-radius: 50%;
           width: 36px;
-          height: 36px;             /* 🔒 Altura fija */
+          height: 36px;             
           display: flex;
           align-items: center;
           justify-content: center;
@@ -92,7 +92,7 @@ export default function Header() {
 
         .custom-header-987__actions .avatar {
           width: 36px;
-          height: 36px;            /* 🔒 Altura fija */
+          height: 36px;           
           border-radius: 50%;
           object-fit: cover;
           cursor: pointer;

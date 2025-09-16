@@ -9,7 +9,7 @@ export const EstadisticasProvider = ({ children }) => {
   const [datos, setDatos] = useState([]);
 
   useEffect(() => {
-    const datosRef = ref(db, "datos"); // la misma ruta que usas en AppContext
+    const datosRef = ref(db, "historial"); // la misma ruta que usas en AppContext
     onValue(datosRef, (snapshot) => {
       const data = snapshot.val();
       if (data) {

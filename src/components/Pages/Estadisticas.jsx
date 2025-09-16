@@ -41,7 +41,7 @@ const TIME_RANGES = {
 };
 
 const METRIC_NAMES = {
-  humedad: "Humedad del suelo",
+  humedadSuelo: "Humedad del suelo",
   humedadAmbiental: "Humedad ambiental",
   temperatura: "Temperatura",
 };
@@ -52,10 +52,34 @@ const COLORS = [
   "rgba(255, 160, 90, 0.7)",  // Temperatura
 ];
 
+function parseFecha(d) {
+  if (!d) return NaN;
+
+  if (d.fecha_epoch) {
+    return d.fecha_epoch * 1000;
+  }
+
+  if (typeof d.fechaHora === "number") {
+    return d.fechaHora;
+  }
+
+  if (d.fecha_texto) {
+    const parsed = new Date(d.fecha_texto).getTime();
+    return isNaN(parsed) ? NaN : parsed;
+  }
+
+  if (d.fechaHora) {
+    const parsed = new Date(d.fechaHora).getTime();
+    return isNaN(parsed) ? NaN : parsed;
+  }
+
+  return NaN;
+}
+
 const EstadisticasComponente = () => {
   const { datos } = useContext(EstadisticasContext);
   const [rango, setRango] = useState("actual");
-  const [metrica, setMetrica] = useState("humedad");
+  const [metrica, setMetrica] = useState("humedadSuelo");
 
   if (!datos || datos.length === 0) return <p className="text-gray-500">Cargando datos...</p>;
 
@@ -64,14 +88,22 @@ const EstadisticasComponente = () => {
       return [datos[datos.length - 1]];
     }
 
-    const ahora = new Date();
-    const limite = ahora.getTime() - TIME_RANGES[rango];
-    return datos.filter((d) => new Date(d.fechaHora).getTime() >= limite);
+    const ahora = Date.now();
+    const limite = ahora - TIME_RANGES[rango];
+
+    return datos.filter((d) => {
+      const ts = parseFecha(d);
+      return !isNaN(ts) && ts >= limite;
+    });
   };
 
   const datosFiltrados = obtenerDatosFiltrados();
 
   const prepararDatosGraficos = () => {
+    if (datosFiltrados.length === 0) {
+      return { dataBar: { labels: [], datasets: [] }, dataPie: null };
+    }
+
     if (rango === "actual") {
       const ultimo = datosFiltrados[0];
       const labels = ["Actual"];
@@ -80,8 +112,8 @@ const EstadisticasComponente = () => {
         labels,
         datasets: [
           {
-            label: METRIC_NAMES.humedad,
-            data: [ultimo.humedad || 0],
+            label: METRIC_NAMES.humedadSuelo,
+            data: [ultimo.humedadSuelo || 0],
             backgroundColor: COLORS[0],
           },
           {
@@ -102,7 +134,7 @@ const EstadisticasComponente = () => {
         datasets: [
           {
             data: [
-              ultimo.humedad || 0,
+              ultimo.humedadSuelo || 0,
               ultimo.humedadAmbiental || 0,
               ultimo.temperatura || 0,
             ],
@@ -114,7 +146,10 @@ const EstadisticasComponente = () => {
       return { dataBar, dataPie };
     }
 
-    const labels = datosFiltrados.map((d) => d.fechaHora.slice(11, 19));
+// ===============RANGO DE TIEMPO ================
+    const labels = datosFiltrados.map((d) =>
+      new Date(parseFecha(d)).toLocaleTimeString()
+    );
     const valores = datosFiltrados.map((d) => d[metrica] || 0);
 
     const dataBar = {
@@ -216,7 +251,7 @@ const EstadisticasComponente = () => {
             onChange={(e) => setMetrica(e.target.value)}
             className="selector-input"
           >
-            <option value="humedad">Humedad del suelo</option>
+            <option value="humedadSuelo">Humedad del suelo</option>
             <option value="humedadAmbiental">Humedad ambiental</option>
             <option value="temperatura">Temperatura</option>
           </select>
@@ -240,7 +275,7 @@ const EstadisticasComponente = () => {
               />
             </div>
 
-            {rango === "actual" && (
+            {rango === "actual" && dataPie && (
               <div className="grafico-item">
                 <Pie
                   data={dataPie}
