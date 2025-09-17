@@ -1,3 +1,4 @@
+// src/components/Sidebar.jsx
 import React from "react";
 import { NavLink, useNavigate } from "react-router-dom";
 import {
@@ -12,52 +13,55 @@ import { useAuth } from "../context/AuthContext";
 
 const Sidebar = () => {
   const navigate = useNavigate();
-  const { logout } = useAuth();
+  const { currentUser, logout } = useAuth();
 
   const handleLogout = () => {
     logout();
     navigate("/Inicio");
   };
 
+  // Menú con control por roles
   const menuItems = [
-    { path: "/dashboard", label: "Dashboard", icon: FaHome },
-    { path: "/estadisticas", label: "Estadísticas", icon: FaChartBar },
-    { path: "/control", label: "Control", icon: FaCogs },
-    { path: "/configuracion", label: "Configuración", icon: FaWrench },
-    { path: "/logs", label: "Logs", icon: FaClipboardList },
+    { path: "/dashboard", label: "Dashboard", icon: FaHome, roles: ["admin", "user","analyst"] },
+    { path: "/estadisticas", label: "Estadísticas", icon: FaChartBar, roles: ["admin"] },
+    { path: "/control", label: "Control", icon: FaCogs, roles: ["admin","analyst"] },
+    { path: "/configuracion", label: "Configuración", icon: FaWrench, roles: ["admin"] },
+    { path: "/logs", label: "Logs", icon: FaClipboardList, roles: ["admin", "user","analyst"] },
   ];
 
   return (
     <div className="sidebar">
-      {/*=============================LOGO SIDEBAR=====================   */}
+      {/*============================= LOGO =============================*/}
       <div className="logo-container">
         <div className="logo">
-          <FaHome color="#121212" size={24} />
+          <FaHome color="#ebebebff" size={24} />
         </div>
         <div className="brand-name">FIELDSMART</div>
       </div>
 
-      {/*=============================MENU============================= */}
+      {/*============================= MENÚ =============================*/}
       <ul className="nav-menu">
-        {menuItems.map((item) => {
-          const Icon = item.icon;
-          return (
-            <li key={item.path}>
-              <NavLink
-                to={item.path}
-                className={({ isActive }) =>
-                  `nav-item ${isActive ? "active" : ""}`
-                }
-              >
-                <Icon size={16} />
-                <span>{item.label}</span>
-              </NavLink>
-            </li>
-          );
-        })}
+        {menuItems
+          .filter((item) => item.roles.includes(currentUser?.role)) // solo lo que puede ver
+          .map((item) => {
+            const Icon = item.icon;
+            return (
+              <li key={item.path}>
+                <NavLink
+                  to={item.path}
+                  className={({ isActive }) =>
+                    `nav-item ${isActive ? "active" : ""}`
+                  }
+                >
+                  <Icon size={16} />
+                  <span>{item.label}</span>
+                </NavLink>
+              </li>
+            );
+          })}
       </ul>
 
-      {/*=============================BOTON CERRAR============================= */}
+      {/*============================= BOTÓN CERRAR =============================*/}
       <button className="logout-btn" onClick={handleLogout}>
         <MdLogout size={14} />
         <span>Cerrar</span>
@@ -67,6 +71,76 @@ const Sidebar = () => {
 };
 
 export default Sidebar;
+
+// import React from "react";
+// import { NavLink, useNavigate } from "react-router-dom";
+// import {
+//   FaHome,
+//   FaChartBar,
+//   FaCogs,
+//   FaWrench,
+//   FaClipboardList,
+// } from "react-icons/fa";
+// import { MdLogout } from "react-icons/md";
+// import { useAuth } from "../context/AuthContext";
+
+// const Sidebar = () => {
+//   const navigate = useNavigate();
+//   const { logout } = useAuth();
+
+//   const handleLogout = () => {
+//     logout();
+//     navigate("/Inicio");
+//   };
+
+//   const menuItems = [
+//     { path: "/dashboard", label: "Dashboard", icon: FaHome },
+//     { path: "/estadisticas", label: "Estadísticas", icon: FaChartBar },
+//     { path: "/control", label: "Control", icon: FaCogs },
+//     { path: "/configuracion", label: "Configuración", icon: FaWrench },
+//     { path: "/logs", label: "Logs", icon: FaClipboardList },
+//   ];
+
+//   return (
+//     <div className="sidebar">
+//       {/*=============================LOGO SIDEBAR=====================   */}
+//       <div className="logo-container">
+//         <div className="logo">
+//           <FaHome color="#121212" size={24} />
+//         </div>
+//         <div className="brand-name">FIELDSMART</div>
+//       </div>
+
+//       {/*=============================MENU============================= */}
+//       <ul className="nav-menu">
+//         {menuItems.map((item) => {
+//           const Icon = item.icon;
+//           return (
+//             <li key={item.path}>
+//               <NavLink
+//                 to={item.path}
+//                 className={({ isActive }) =>
+//                   `nav-item ${isActive ? "active" : ""}`
+//                 }
+//               >
+//                 <Icon size={16} />
+//                 <span>{item.label}</span>
+//               </NavLink>
+//             </li>
+//           );
+//         })}
+//       </ul>
+
+//       {/*=============================BOTON CERRAR============================= */}
+//       <button className="logout-btn" onClick={handleLogout}>
+//         <MdLogout size={14} />
+//         <span>Cerrar</span>
+//       </button>
+//     </div>
+//   );
+// };
+
+// export default Sidebar;
 
 // import React from "react";
 // import { NavLink, useNavigate } from "react-router-dom";

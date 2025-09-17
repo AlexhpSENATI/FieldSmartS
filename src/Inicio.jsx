@@ -20,10 +20,10 @@ export default function Home() {
     document.body.style.overflow = showModal ? "hidden" : "unset";
   }, [showModal]);
 
-  //====================REGISTRO CON FIREBASE==================//
+  // --- Registro ---
   async function handleRegister(e) {
     e.preventDefault();
-    const result = await registerUser(name, email, password);
+    const result = await registerUser(name, email, password, "user");
 
     if (result.success) {
       setMessage("✅ Registro exitoso. Ahora puedes iniciar sesión.");
@@ -39,7 +39,7 @@ export default function Home() {
     }
   }
 
-  //==================LOGIN CON FIREBASE==================//
+  // --- Login ---
   async function handleLogin(e) {
     e.preventDefault();
     const result = await loginUser(email, password);
@@ -53,19 +53,6 @@ export default function Home() {
     setShowModal(false);
     navigate("/dashboard");
   }
-
-  // --- Login Anónimo ---
-  // async function handleAnonLogin() {
-  //   const result = await loginAnonimo();
-  //   if (!result.success) {
-  //     setMessage(`❌ Error: ${result.message}`);
-  //     return;
-  //   }
-
-  //   login(result.user);
-  //   setShowModal(false);
-  //   navigate("/dashboard");
-  // }
 
   return (
     <div className="home-container">

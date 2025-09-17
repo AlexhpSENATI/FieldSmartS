@@ -1,7 +1,7 @@
 // src/components/pages/Estadisticas.jsx
 import React, { useContext, useState } from "react";
 import { EstadisticasContext, EstadisticasProvider } from "../../context/EstadisticasContext";
-import Logs from "../../components/pages/Logs";
+import Logs from "./Logs";
 import GraficaDona from "../../components/estadisticas/GraficaDona";
 import { Bar, Pie } from "react-chartjs-2";
 import "../../styles/Estadisticas.css";
