@@ -56,18 +56,18 @@ export default function Login() {
   }
 
   return (
-    <div className="h-screen flex items-center justify-center bg-gray-100">
-      <div className="w-96 bg-white p-6 rounded shadow">
-        <h2 className="text-2xl font-bold mb-4">
+      <div className="login-container">
+      <div className="login-card">
+        <h2 className="login-title">
           {isRegister ? "Registro" : "Login"}
         </h2>
 
         <form onSubmit={isRegister ? handleRegister : handleLogin}>
           {isRegister && (
-            <div className="mb-3">
-              <label>Nombre</label>
+            <div className="login-input-group">
+              <label className="login-label">Nombre</label>
               <input
-                className="w-full border p-2 rounded"
+                className="login-input"
                 value={name}
                 onChange={(e) => setName(e.target.value)}
                 required
@@ -75,37 +75,37 @@ export default function Login() {
             </div>
           )}
 
-          <div className="mb-3">
-            <label>Email</label>
+          <div className="login-input-group">
+            <label className="login-label">Email</label>
             <input
               type="email"
-              className="w-full border p-2 rounded"
+              className="login-input"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               required
             />
           </div>
 
-          <div className="mb-3">
-            <label>Contraseña</label>
+          <div className="login-input-group">
+            <label className="login-label">Contraseña</label>
             <input
               type="password"
-              className="w-full border p-2 rounded"
+              className="login-input"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               required
             />
           </div>
 
-          {message && <p className="text-red-600 text-sm">{message}</p>}
+          {message && <p className="login-message">{message}</p>}
 
-          <button className="bg-blue-600 text-white w-full py-2 rounded mt-2">
+          <button className="login-button">
             {isRegister ? "Registrar" : "Entrar"}
           </button>
         </form>
 
         <button
-          className="mt-3 text-sm underline"
+          className="login-toggle"
           onClick={() => setIsRegister(!isRegister)}
         >
           {isRegister
