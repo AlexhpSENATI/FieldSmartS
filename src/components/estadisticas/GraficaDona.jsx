@@ -164,8 +164,8 @@ export default function GraficasEstadisticas() {
       <div className="card-header-donas">
         <h2 className="card-title">
           {rango === "actual"
-            ? "Estado actual de"
-            : `Evolución de `}
+            ? ""
+            : `Barras - Promedio, Máximo y Mínimo - ${rango === "7d" ? "Por días de la semana" : "Por mes"}`}
         </h2>
 
       </div>
@@ -214,9 +214,9 @@ export default function GraficasEstadisticas() {
           <div className="donas-item"><Doughnut data={prepararDona("humedadAmbiental")} options={chartOptions} height={250} /></div>
         </div>
       </div> */}
-      <div className="donas-card-header">
+      {/* <div className="donas-card-header">
         <h2 className="donas-card-title">Barras - Promedio, Máximo y Mínimo</h2>
-      </div>
+      </div> */}
       {/*=====================================GRAFICO DE BARRAS====================================== */}
       <div className="donas-card">
 

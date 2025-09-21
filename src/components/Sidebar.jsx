@@ -7,6 +7,7 @@ import {
   FaCogs,
   FaWrench,
   FaClipboardList,
+  FaUsers,
 } from "react-icons/fa";
 import { MdLogout } from "react-icons/md";
 import { useAuth } from "../context/AuthContext";
@@ -22,11 +23,11 @@ const Sidebar = () => {
 
   // Menú con control por roles
   const menuItems = [
-    { path: "/dashboard", label: "Dashboard", icon: FaHome, roles: ["admin", "user","analyst"] },
+    { path: "/dashboard", label: "Dashboard", icon: FaHome, roles: ["admin", "user", "analyst"] },
     { path: "/estadisticas", label: "Estadísticas", icon: FaChartBar, roles: ["admin"] },
-    { path: "/control", label: "Control", icon: FaCogs, roles: ["admin","analyst"] },
-    { path: "/configuracion", label: "Configuración", icon: FaWrench, roles: ["admin"] },
-    { path: "/logs", label: "Logs", icon: FaClipboardList, roles: ["admin", "user","analyst"] },
+    { path: "/control", label: "Control", icon: FaCogs, roles: ["admin", "analyst"] },
+    { path: "/configuracion", label: "Usuarios", icon: FaUsers, roles: ["admin"] },
+    { path: "/logs", label: "Logs", icon: FaClipboardList, roles: ["admin", "user", "analyst"] },
   ];
 
   return (
@@ -34,10 +35,21 @@ const Sidebar = () => {
       {/*============================= LOGO =============================*/}
       <div className="logo-container">
         <div className="logo">
+          <img src="/icons/logo03.png" alt="Logo 1" style={{ width: '65px', height: 'auto' }} />
+        </div>
+        <div className="logo">
+          <img src="/icons/logo02.png" alt="Logo 2" style={{ width: '180px', height: 'auto' }} />
+        </div>
+      </div>
+
+
+
+      {/* <div className="logo-container">
+        <div className="logo">
           <FaHome color="#ebebebff" size={24} />
         </div>
         <div className="brand-name">FIELDSMART</div>
-      </div>
+      </div> */}
 
       {/*============================= MENÚ =============================*/}
       <ul className="nav-menu">

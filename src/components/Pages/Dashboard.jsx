@@ -63,10 +63,15 @@ const Dashboard = () => {
 
   return (
     <div className="dashboard-container">
-      <header className="dashboard-header">
+      <div className='dashboard-title'>
+        <h1>Informacion General </h1>
+      </div>
+
+      <br />
+      {/* <header className="dashboard-header">
         <h1>Panel de Control </h1>
         <p>FIELDSMART</p>
-      </header>
+      </header> */}
 
       <section className="dashboard-connection">
         <h2>Conexión del Dispositivo</h2>
@@ -98,7 +103,12 @@ const Dashboard = () => {
       </section>
 
       <section className="dashboard-sensors">
-        <h2>Datos de Sensores</h2>
+        <div class="sensor-title">
+          <i class="bi bi-activity"></i>
+          <h2>Datos de Sensores</h2>
+        </div>
+
+
         <div className="sensors-grid">
           {/*=============================TARJETA DE ESTADO DE TEMPERATURA============================*/}
           <div className="sensor-card temp-card">
@@ -216,7 +226,11 @@ const Dashboard = () => {
       </section>
 
       <section className="dashboard-additional">
-        <h2>Información Adicional</h2>
+
+        <div class="sensor-title">
+          <i class="bi bi-info-circle"></i>
+          <h2>Informacion Adicional</h2>
+        </div>
         <div className="additional-grid">
           {/*=================TARJETA DE UMBRAL MINIMO================== */}
           <div className="info-card umbral-card">

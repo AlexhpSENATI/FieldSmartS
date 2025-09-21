@@ -39,9 +39,11 @@ const Control = () => {
   {/*=============================PANEL DE CONTROL============================*/ }
   return (
     <div className="control-container">
-      <header className="control-header">
-        <h1>Panel de Control</h1>
-      </header>
+    
+      <div className='control-title'>
+        <h1>Panel de Control </h1>
+      </div>
+
       {/*=============================SECCIÓN DE CONFIGURACIÓN============================*/}
       <section className="control-section config-section">
         <h2><i className="bi bi-sliders"></i> Configuración del Sistema</h2>

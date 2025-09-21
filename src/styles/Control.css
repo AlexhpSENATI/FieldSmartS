@@ -15,7 +15,27 @@
   color: #ffffff;
 }
 
-.control-header h1 {
+.control-title {
+  text-align: left;
+  /* Alinea el texto a la izquierda como en tu ejemplo */
+  margin-bottom: 15px;
+  border-bottom: 1px solid #2d2d2d;
+  padding-bottom: 14px;
+  /* Para que la línea no quede pegada al texto */
+  display: flex;
+  align-items: center;
+  /* Centra verticalmente si agregas íconos u otros elementos */
+}
+
+.control-title h1 {
+  font-size: 1.6rem;
+  /* Similar al tamaño de tu ejemplo */
+  font-weight: 600;
+  margin: 0;
+  color: #ffffff;
+}
+
+/* .control-header h1 {
   font-weight: 600;
   margin-bottom: 5px;
   font-size: 2.2rem;
@@ -23,7 +43,7 @@
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
-}
+} */
 
 .control-header p {
   color: #a0a0a0;

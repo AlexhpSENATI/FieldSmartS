@@ -346,9 +346,12 @@ const EstadisticasComponente = () => {
 
       <div className="card glow-effect">
         <div className="card-header">
+          
           <h2 className="card-title">
+            
             {rango === "actual"
-              ? "Último dato registrado"
+            
+              ? "Últimos dato registrado"
               : `Evolución de ${METRIC_NAMES[metrica]}`}
           </h2>
           <div className="card-badge">

@@ -16,6 +16,28 @@
   color: #ffffff;
 }
 
+.dashboard-title {
+  text-align: left;
+  /* Alinea el texto a la izquierda como en tu ejemplo */
+  margin-bottom: 15px;
+  border-bottom: 1px solid #2d2d2d;
+  padding-bottom: 14px;
+  /* Para que la línea no quede pegada al texto */
+  display: flex;
+  align-items: center;
+  /* Centra verticalmente si agregas íconos u otros elementos */
+}
+
+.dashboard-title h1 {
+  font-size: 1.6rem;
+  /* Similar al tamaño de tu ejemplo */
+  font-weight: 600;
+  margin: 0;
+  color: #ffffff;
+}
+
+
+
 .dashboard-header h1 {
   font-weight: 600;
   margin-bottom: 5px;
@@ -131,11 +153,39 @@
   margin-bottom: 25px;
 }
 
-.dashboard-sensors h2 {
-  color: #00b4db;
+.sensor-title {
+  display: flex;
+  align-items: center;
+  /* centra verticalmente ícono y texto */
+  gap: 8px;
+  /* espacio entre ícono y título */
+  margin-bottom: 15px;
+  border-bottom: 1px solid #2d2d2d;
+  /* línea inferior opcional */
+  padding-bottom: 5px;
+}
+
+.sensor-title i {
+  font-size: 1.5rem;
+  /* tamaño del ícono */
+  color: #ffffff;
+  /* color azul Bootstrap */
+}
+
+.sensor-title h2 {
+  font-size: 1.3rem;
+  font-weight: 600;
+  margin: 0;
+  color: #ffffff;
+  /* blanco */
+}
+
+
+/* .dashboard-sensors h2 {
+  color: #eaedee;
   margin-bottom: 20px;
   font-size: 1.5rem;
-}
+} */
 
 .sensors-grid {
   display: grid;
@@ -228,11 +278,11 @@
   margin-bottom: 25px;
 }
 
-.dashboard-additional h2 {
+/* .dashboard-additional h2 {
   color: #00b4db;
   margin-bottom: 20px;
   font-size: 1.5rem;
-}
+} */
 
 .additional-grid {
   display: grid;
@@ -317,16 +367,16 @@
   .connection-controls {
     flex-direction: column;
   }
-  
+
   .connection-input {
     min-width: auto;
   }
-  
+
   .sensors-grid,
   .additional-grid {
     grid-template-columns: 1fr;
   }
-  
+
   .sensor-card {
     flex-direction: column;
     text-align: center;
