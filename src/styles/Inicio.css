@@ -237,8 +237,15 @@ body {
 }
 
 @keyframes float {
-  0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(-15px); }
+
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(-15px);
+  }
 }
 
 .main-visual {
@@ -315,10 +322,21 @@ body {
   border-radius: 3px 3px 0 0;
 }
 
-.chart-bar:nth-child(1) { height: 40%; }
-.chart-bar:nth-child(2) { height: 70%; }
-.chart-bar:nth-child(3) { height: 50%; }
-.chart-bar:nth-child(4) { height: 90%; }
+.chart-bar:nth-child(1) {
+  height: 40%;
+}
+
+.chart-bar:nth-child(2) {
+  height: 70%;
+}
+
+.chart-bar:nth-child(3) {
+  height: 50%;
+}
+
+.chart-bar:nth-child(4) {
+  height: 90%;
+}
 
 /* Features Section */
 .features {
@@ -493,8 +511,13 @@ body {
 }
 
 @keyframes fadeIn {
-  from { opacity: 0; }
-  to { opacity: 1; }
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
 }
 
 .modal-container {
@@ -505,8 +528,15 @@ body {
 }
 
 @keyframes modalSlideUp {
-  from { transform: translateY(50px); opacity: 0; }
-  to { transform: translateY(0); opacity: 1; }
+  from {
+    transform: translateY(50px);
+    opacity: 0;
+  }
+
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
 }
 
 .modal-luxury-border {
@@ -635,8 +665,8 @@ body {
   pointer-events: none;
 }
 
-.input-group input:focus + label,
-.input-group input:not(:placeholder-shown) + label {
+.input-group input:focus+label,
+.input-group input:not(:placeholder-shown)+label {
   top: -0.5rem;
   font-size: 0.8rem;
   color: #ffd700;
@@ -652,9 +682,35 @@ body {
   transition: width 0.3s;
 }
 
-.input-group input:focus ~ .input-border {
+.input-group input:focus~.input-border {
   width: 100%;
 }
+
+.google-btn,
+.youtube-btn {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 16px;
+  border: 2px solid #FFD700;
+  background-color: transparent;
+  color: #FFD700;
+  font-size: 1rem;
+  margin-top: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  border-radius: 5px;
+  text-decoration: none;
+  /* importante para <a> */
+  transition: all 0.3s ease;
+}
+
+.google-btn:hover,
+.youtube-btn:hover {
+  background-color: #af9812;
+  color: #000;
+}
+
 
 .submit-btn {
   width: 100%;
@@ -678,23 +734,26 @@ body {
   left: -50%;
   width: 200%;
   height: 200%;
-  background: linear-gradient(
-    to right,
-    rgba(255, 255, 255, 0) 0%,
-    rgba(255, 255, 255, 0.3) 50%,
-    rgba(255, 255, 255, 0) 100%
-  );
+  background: linear-gradient(to right,
+      rgba(255, 255, 255, 0) 0%,
+      rgba(255, 255, 255, 0.3) 50%,
+      rgba(255, 255, 255, 0) 100%);
   transform: rotate(45deg);
   animation: shine 3s infinite;
 }
 
 @keyframes shine {
-  0% { left: -50%; }
-  100% { left: 100%; }
+  0% {
+    left: -50%;
+  }
+
+  100% {
+    left: 100%;
+  }
 }
 
 .submit-btn:hover {
-  box-shadow: 0 5px 15px rgba(255, 215, 0, 0.4);
+  box-shadow: 0 5px 15px #ffd70066;
 }
 
 .submit-btn span {
@@ -750,11 +809,11 @@ body {
   .modal-container {
     width: 95%;
   }
-  
+
   .modal-content {
     padding: 1.8rem;
   }
-  
+
   .modal-header h2 {
     font-size: 1.5rem;
   }
@@ -767,34 +826,34 @@ body {
     text-align: center;
     padding: 4rem 5%;
   }
-  
+
   .hero-content {
     padding-right: 0;
     margin-bottom: 3rem;
   }
-  
+
   .hero-buttons {
     justify-content: center;
   }
-  
+
   .nav {
     display: none;
   }
-  
+
   .hero-image {
     height: 400px;
   }
-  
+
   .main-visual {
     width: 250px;
     height: 250px;
   }
-  
+
   .device-mockup {
     width: 160px;
     height: 300px;
   }
-  
+
   .testimonial-cards {
     grid-template-columns: 1fr;
   }
@@ -804,11 +863,11 @@ body {
   .hero-content h1 {
     font-size: 2.5rem;
   }
-  
+
   .floating-card {
     display: none;
   }
-  
+
   .features-grid {
     grid-template-columns: 1fr;
   }

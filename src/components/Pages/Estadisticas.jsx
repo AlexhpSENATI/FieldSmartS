@@ -48,11 +48,10 @@ const METRIC_NAMES = {
   temperatura: "Temperatura",
 };
 
-// Nuevos colores vibrantes con gradientes
 const COLORS = [
-  "rgba(0, 230, 230, 0.8)", // Cian brillante - Humedad suelo
-  "rgba(180, 70, 255, 0.8)", // Púrpura vibrante - Humedad ambiental
-  "rgba(255, 100, 100, 0.8)", // Rojo coral - Temperatura
+  "rgba(0, 230, 230, 0.8)",
+  "rgba(180, 70, 255, 0.8)",
+  "rgba(255, 100, 100, 0.8)",
 ];
 
 // Colores para fondos de gráficas
@@ -299,58 +298,15 @@ const EstadisticasComponente = () => {
 
   return (
     <div className="estadisticas-container">
-      {/* <div className="header-section">
-        <h1 className="main-title">Panel de Estadísticas</h1>
-        <p className="subtitle">Visualización de datos en tiempo real</p>
-      </div> */}
 
-      {/* <div className="controls-container">
-        <div className="control-group">
-          <label className="control-label">Rango de Tiempo</label>
-          <select
-            value={rango}
-            onChange={(e) => setRango(e.target.value)}
-            className="control-select"
-          >
-            <option value="actual">Último dato</option>
-            <option value="10s">Últimos 10s</option>
-            <option value="5m">Últimos 5 min</option>
-            <option value="30m">Últimos 30 min</option>
-            <option value="1h">Última hora</option>
-            <option value="2h">Últimas 2 h</option>
-            <option value="6h">Últimas 6 h</option>
-            <option value="12h">Últimas 12 h</option>
-            <option value="24h">Últimas 24 h</option>
-            <option value="3d">Últimos 3 días</option>
-            <option value="1w">Última semana</option>
-            <option value="1m">Último mes</option>
-            <option value="1y">Último año</option>
-          </select>
-        </div>
-
-        {rango !== "actual" && (
-          <div className="control-group">
-            <label className="control-label">Seleccionar Métrica</label>
-            <select
-              value={metrica}
-              onChange={(e) => setMetrica(e.target.value)}
-              className="control-select"
-            >
-              <option value="humedadSuelo">Humedad del suelo</option>
-              <option value="humedadAmbiental">Humedad ambiental</option>
-              <option value="temperatura">Temperatura</option>
-            </select>
-          </div>
-        )}
-      </div> */}
 
       <div className="card glow-effect">
         <div className="card-header">
-          
+
           <h2 className="card-title">
-            
+
             {rango === "actual"
-            
+
               ? "Últimos dato registrado"
               : `Evolución de ${METRIC_NAMES[metrica]}`}
           </h2>

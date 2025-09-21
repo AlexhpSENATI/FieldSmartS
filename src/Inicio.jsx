@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { loadUsers, saveUsers } from "./storage";
 import { useAuth } from "./context/AuthContext";
+import { FcGoogle } from "react-icons/fc";
+import { FaYoutube } from "react-icons/fa";
 import "./styles/Inicio.css";
-import { registerUser, loginUser } from "./services/authService";
+import { registerUser, loginUser, loginWithGoogle } from "./services/authService";
 
 export default function Home() {
   const { login } = useAuth();
@@ -20,43 +21,180 @@ export default function Home() {
     document.body.style.overflow = showModal ? "hidden" : "unset";
   }, [showModal]);
 
+  // // --- Registro ---
+  // async function handleRegister(e) {
+  //   e.preventDefault();
+  //   const result = await registerUser(name, email, password, "user");
+
+  //   if (result.success) {
+  //     setMessage(" Registro exitoso. Ahora puedes iniciar sesión.");
+  //     setTimeout(() => {
+  //       setIsRegister(false);
+  //       setEmail("");
+  //       setPassword("");
+  //       setName("");
+  //       setMessage("");
+  //     }, 1500);
+  //   } else {
+  //     setMessage(`❌ Error: ${result.message}`);
+  //   }
+  // }
+
+  // // --- Login ---
+  // async function handleLogin(e) {
+  //   e.preventDefault();
+
+  //   console.log("email:", email, "password:", password, typeof email, typeof password);
+
+  //   if (typeof email !== "string" || typeof password !== "string") {
+  //     setMessage("❌ Email o contraseña inválidos");
+  //     return;
+  //   }
+
+  //   // const result = await loginUser(email, password);
+  //   const result = await loginUser(email.trim(), password.trim());
+  //   if (!result.success) {
+  //     setMessage(`❌ Error: ${result.message}`);
+  //     return;
+  //   }
+
+  //   login(result.user);
+  //   setShowModal(false);
+  //   navigate("/dashboard");
+  // }
+
+  // //   async function handleLogin(e) {
+  // //     e.preventDefault();
+  // // console.log("email:", email, "password:", password, typeof email, typeof password);
+
+  // //     // console.log("Intentando login con:", email, password); // debug
+
+  // //     const result = await loginUser(email, password);
+
+  // //     if (!result.success) {
+  // //       setMessage(`❌ Error: ${result.message}`);
+  // //       return;
+  // //     }
+
+  // //     login(result.user);
+  // //     setShowModal(false);
+  // //     navigate("/dashboard");
+  // //   }
+
+  // // --- Login con Google ---
+  // async function handleGoogleLogin() {
+  //   try {
+  //     const result = await loginWithGoogle();
+  //     if (!result.success) {
+  //       setMessage("❌ " + result.message);
+  //     } else {
+  //       setMessage("✅ Bienvenido " + (result.user.displayName || ""));
+  //       login(result.user);
+  //       setShowModal(false);
+  //       navigate("/dashboard");
+  //     }
+  //   } catch (error) {
+  //     setMessage("❌ " + error.message);
+  //   }
+  // }
+  // --- Mapeo de errores de Firebase a mensajes en español ---
+  function getErrorMessage(code) {
+    switch (code) {
+      case "auth/invalid-email":
+        return "Correo electrónico no válido";
+      case "auth/user-disabled":
+        return "El usuario ha sido deshabilitado";
+      case "auth/user-not-found":
+        return "Usuario no encontrado";
+      case "auth/wrong-password":
+        return "Contraseña incorrecta";
+      case "auth/email-already-in-use":
+        return "El correo ya está en uso";
+      case "auth/weak-password":
+        return "La contraseña es muy débil";
+      case "auth/popup-closed-by-user":
+        return "Has cerrado la ventana de autenticación";
+      case "auth/invalid-credential":
+        return "Credenciales inválidas";
+      default:
+        return "Ocurrió un error inesperado";
+    }
+  }
+
   // --- Registro ---
   async function handleRegister(e) {
     e.preventDefault();
-    const result = await registerUser(name, email, password, "user");
+    try {
+      const result = await registerUser(name, email, password, "user");
 
-    if (result.success) {
-      setMessage("✅ Registro exitoso. Ahora puedes iniciar sesión.");
-      setTimeout(() => {
-        setIsRegister(false);
-        setEmail("");
-        setPassword("");
-        setName("");
-        setMessage("");
-      }, 1500);
-    } else {
-      setMessage(`❌ Error: ${result.message}`);
+      if (result.success) {
+        setMessage(" Registro exitoso. Ahora puedes iniciar sesión.");
+        setTimeout(() => {
+          setIsRegister(false);
+          setEmail("");
+          setPassword("");
+          setName("");
+          setMessage("");
+        }, 1500);
+      } else {
+        const friendlyMessage = getErrorMessage(result.message || result.code);
+        setMessage(`❌ ${friendlyMessage}`);
+      }
+    } catch (error) {
+      const friendlyMessage = getErrorMessage(error.code);
+      setMessage(`❌ ${friendlyMessage}`);
     }
   }
 
   // --- Login ---
   async function handleLogin(e) {
     e.preventDefault();
-    const result = await loginUser(email, password);
 
-    if (!result.success) {
-      setMessage(`❌ Error: ${result.message}`);
+    if (typeof email !== "string" || typeof password !== "string") {
+      setMessage("❌ Email o contraseña inválidos");
       return;
     }
 
-    login(result.user);
-    setShowModal(false);
-    navigate("/dashboard");
+    try {
+      const result = await loginUser(email.trim(), password.trim());
+
+      if (!result.success) {
+        const friendlyMessage = getErrorMessage(result.message || result.code);
+        setMessage(`❌ ${friendlyMessage}`);
+        return;
+      }
+
+      login(result.user);
+      setShowModal(false);
+      navigate("/dashboard");
+    } catch (error) {
+      const friendlyMessage = getErrorMessage(error.code);
+      setMessage(`❌ ${friendlyMessage}`);
+    }
+  }
+
+  // --- Login con Google ---
+  async function handleGoogleLogin() {
+    try {
+      const result = await loginWithGoogle();
+      if (!result.success) {
+        const friendlyMessage = getErrorMessage(result.message || result.code);
+        setMessage(`❌ ${friendlyMessage}`);
+      } else {
+        setMessage("✅ Bienvenido " + (result.user.displayName || ""));
+        login(result.user);
+        setShowModal(false);
+        navigate("/dashboard");
+      }
+    } catch (error) {
+      const friendlyMessage = getErrorMessage(error.code);
+      setMessage(`❌ ${friendlyMessage}`);
+    }
   }
 
   return (
     <div className="home-container">
-      {/* Header con navegación */}
+      {/* Header */}
       <header className="header">
         <div className="logo-container">
           <h1 className="logo">FieldSmart</h1>
@@ -82,8 +220,12 @@ export default function Home() {
       <section className="hero">
         <div className="hero-content">
           <div className="gold-accent-line"></div>
-          <h1>Gestión de campo <span className="gold-text">excepcional</span></h1>
-          <p>La plataforma premium para profesionales que exigen lo mejor en gestión de proyectos en campo.</p>
+          <h1>
+            Gestión de campo <span className="gold-text">excepcional</span>
+          </h1>
+          <p>
+            La plataforma premium para profesionales que exigen lo mejor en gestión de proyectos en campo.
+          </p>
           <div className="hero-buttons">
             <button
               className="btn-primary"
@@ -136,7 +278,9 @@ export default function Home() {
       <section id="features" className="features">
         <div className="section-header">
           <div className="gold-accent-line center"></div>
-          <h2>Características <span className="gold-text">Exclusivas</span></h2>
+          <h2>
+            Características <span className="gold-text">Exclusivas</span>
+          </h2>
           <p>Diseñado para los profesionales más exigentes</p>
         </div>
         <div className="features-grid">
@@ -163,17 +307,22 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Testimonials Section */}
+      {/* Testimonials */}
       <section className="testimonials">
         <div className="section-header">
           <div className="gold-accent-line center"></div>
-          <h2>Opiniones de <span className="gold-text">Clientes</span></h2>
+          <h2>
+            Opiniones de <span className="gold-text">Clientes</span>
+          </h2>
         </div>
         <div className="testimonial-cards">
           <div className="testimonial-card">
             <div className="testimonial-content">
               <div className="stars">★★★★★</div>
-              <p>"FieldSmart transformó completamente nuestra gestión de proyectos. La elegancia y funcionalidad son incomparables."</p>
+              <p>
+                "FieldSmart transformó completamente nuestra gestión de proyectos. La elegancia y
+                funcionalidad son incomparables."
+              </p>
               <div className="client">
                 <div className="client-avatar"></div>
                 <div className="client-info">
@@ -186,7 +335,10 @@ export default function Home() {
           <div className="testimonial-card">
             <div className="testimonial-content">
               <div className="stars">★★★★★</div>
-              <p>"La interfaz es tan intuitiva como poderosa. Hemos reducido nuestro tiempo de gestión en un 40% desde que implementamos FieldSmart."</p>
+              <p>
+                "La interfaz es tan intuitiva como poderosa. Hemos reducido nuestro tiempo de gestión en
+                un 40% desde que implementamos FieldSmart."
+              </p>
               <div className="client">
                 <div className="client-avatar"></div>
                 <div className="client-info">
@@ -199,7 +351,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Modal de Login y Registro  */}
+      {/* Modal */}
       {showModal && (
         <div className="modal-overlay" onClick={() => setShowModal(false)}>
           <div className="modal-container" onClick={(e) => e.stopPropagation()}>
@@ -216,7 +368,11 @@ export default function Home() {
 
                 <div className="modal-header">
                   <h2>{isRegister ? "Crear Cuenta" : "Iniciar Sesión"}</h2>
-                  <p>{isRegister ? "Regístrate para comenzar" : "Ingresa a tu cuenta para continuar"}</p>
+                  <p>
+                    {isRegister
+                      ? "Regístrate para comenzar"
+                      : "Ingresa a tu cuenta para continuar"}
+                  </p>
                 </div>
 
                 <form onSubmit={isRegister ? handleRegister : handleLogin}>
@@ -248,6 +404,7 @@ export default function Home() {
                     <input
                       type="password"
                       value={password}
+
                       onChange={(e) => setPassword(e.target.value)}
                       required
                     />
@@ -256,7 +413,9 @@ export default function Home() {
                   </div>
 
                   {message && (
-                    <div className={`message ${message.includes('❌') ? 'error' : 'success'}`}>
+                    <div
+                      className={`message ${message.includes("❌") ? "error" : "success"}`}
+                    >
                       {message}
                     </div>
                   )}
@@ -265,15 +424,40 @@ export default function Home() {
                     <span>{isRegister ? "Registrarse" : "Iniciar Sesión"}</span>
                     <div className="btn-shine"></div>
                   </button>
+
+                  <div style={{ display: 'flex', justifyContent: 'center', gap: '12px', marginTop: '20px' }}>
+                    {/* Botón Google */}
+                    <button
+                      type="button"
+                      className="google-btn"
+                      onClick={handleGoogleLogin}
+                    >
+                      <FcGoogle size={20} />
+                      Google
+                    </button>
+
+                    {/* Botón YouTube */}
+                    <a
+                      href="https://www.youtube.com/"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="youtube-btn"
+                    >
+                      <FaYoutube size={20} color="#FF0000" />
+                      YouTube
+                    </a>
+                  </div>
                 </form>
 
                 <div className="modal-footer">
                   <p>
                     {isRegister ? "¿Ya tienes una cuenta?" : "¿No tienes una cuenta?"}
-                    <span onClick={() => {
-                      setIsRegister(!isRegister);
-                      setMessage("");
-                    }}>
+                    <span
+                      onClick={() => {
+                        setIsRegister(!isRegister);
+                        setMessage("");
+                      }}
+                    >
                       {isRegister ? " Inicia sesión" : " Regístrate"}
                     </span>
                   </p>

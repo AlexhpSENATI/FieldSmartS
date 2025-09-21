@@ -1,15 +1,6 @@
 /* Dashboard.css - Versión Multicolor con Iconos Bootstrap */
 @import url("https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css");
 
-
-/* .dashboard-container {
-  padding: 20px;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  background-color: #121212;
-  min-height: 100vh;
-  color: #e0e0e0;
-} */
-
 .dashboard-header {
   text-align: center;
   margin-bottom: 30px;
@@ -18,19 +9,15 @@
 
 .dashboard-title {
   text-align: left;
-  /* Alinea el texto a la izquierda como en tu ejemplo */
   margin-bottom: 15px;
   border-bottom: 1px solid #2d2d2d;
   padding-bottom: 14px;
-  /* Para que la línea no quede pegada al texto */
   display: flex;
   align-items: center;
-  /* Centra verticalmente si agregas íconos u otros elementos */
 }
 
 .dashboard-title h1 {
   font-size: 1.6rem;
-  /* Similar al tamaño de tu ejemplo */
   font-weight: 600;
   margin: 0;
   color: #ffffff;
@@ -53,7 +40,6 @@
   font-size: 1.1rem;
 }
 
-/* Connection Section */
 .dashboard-connection {
   background: linear-gradient(145deg, #1a1a2e, #16213e);
   border-radius: 10px;
@@ -156,20 +142,15 @@
 .sensor-title {
   display: flex;
   align-items: center;
-  /* centra verticalmente ícono y texto */
   gap: 8px;
-  /* espacio entre ícono y título */
   margin-bottom: 15px;
   border-bottom: 1px solid #2d2d2d;
-  /* línea inferior opcional */
   padding-bottom: 5px;
 }
 
 .sensor-title i {
   font-size: 1.5rem;
-  /* tamaño del ícono */
   color: #ffffff;
-  /* color azul Bootstrap */
 }
 
 .sensor-title h2 {
@@ -177,15 +158,7 @@
   font-weight: 600;
   margin: 0;
   color: #ffffff;
-  /* blanco */
 }
-
-
-/* .dashboard-sensors h2 {
-  color: #eaedee;
-  margin-bottom: 20px;
-  font-size: 1.5rem;
-} */
 
 .sensors-grid {
   display: grid;
@@ -273,16 +246,9 @@
   font-weight: 600;
 }
 
-/* Additional Info Section */
 .dashboard-additional {
   margin-bottom: 25px;
 }
-
-/* .dashboard-additional h2 {
-  color: #00b4db;
-  margin-bottom: 20px;
-  font-size: 1.5rem;
-} */
 
 .additional-grid {
   display: grid;

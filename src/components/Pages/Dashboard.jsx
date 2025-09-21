@@ -68,10 +68,7 @@ const Dashboard = () => {
       </div>
 
       <br />
-      {/* <header className="dashboard-header">
-        <h1>Panel de Control </h1>
-        <p>FIELDSMART</p>
-      </header> */}
+    
 
       <section className="dashboard-connection">
         <h2>Conexión del Dispositivo</h2>
@@ -103,11 +100,10 @@ const Dashboard = () => {
       </section>
 
       <section className="dashboard-sensors">
-        <div class="sensor-title">
-          <i class="bi bi-activity"></i>
+        <div className="sensor-title">
+          <i className="bi bi-activity"></i>
           <h2>Datos de Sensores</h2>
         </div>
-
 
         <div className="sensors-grid">
           {/*=============================TARJETA DE ESTADO DE TEMPERATURA============================*/}
@@ -167,27 +163,6 @@ const Dashboard = () => {
           </div>
 
           {/*=============================TARJETA DE ESTADO DEL SISTEMA============================*/}
-          {/* <div className="sensor-card system-card">
-            <div className="sensor-icon">
-              <i
-                className={`bi ${infoSistema === "Activado" ? "bi-power" : "bi-power-off"}`}
-                style={{
-                  fontSize: "2.5rem",
-                  color: infoSistema === "Activado" ? "#2ecc71" : "#e74c3c",
-                }}
-              ></i>
-            </div>
-            <div className="sensor-info">
-              <h3>Estado del Sistema</h3>
-              <p
-                className="sensor-value"
-                style={{ color: infoSistema === "Activado" ? "#2ecc71" : "#e74c3c" }}
-              >
-                {infoSistema}
-              </p>
-            </div>
-          </div> */}
-          {/*=============================TARJETA DE ESTADO DEL SISTEMA============================*/}
           <div className="sensor-card system-card">
             <div className="sensor-icon">
               <i
@@ -227,8 +202,8 @@ const Dashboard = () => {
 
       <section className="dashboard-additional">
 
-        <div class="sensor-title">
-          <i class="bi bi-info-circle"></i>
+        <div className="sensor-title">
+          <i className="bi bi-info-circle"></i>
           <h2>Informacion Adicional</h2>
         </div>
         <div className="additional-grid">

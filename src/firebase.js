@@ -4,14 +4,14 @@ import { getDatabase } from "firebase/database";
 import { getAuth } from "firebase/auth";
 
 const firebaseConfig = {
-  apiKey: "AIzaSyBiPA89yl_4lKC1erP0WMSRgoGUfvJSwtw",
-  authDomain: "aplicativo-b486b.firebaseapp.com",
-  databaseURL: "https://aplicativo-b486b-default-rtdb.firebaseio.com",
-  projectId: "aplicativo-b486b",
-  storageBucket: "aplicativo-b486b.firebasestorage.app",
-  messagingSenderId: "644036259510",
-  appId: "1:644036259510:web:5efa6cf49864d0c6aec017",
-  measurementId: "G-CVRLF3GFDE"
+  apiKey: "AIzaSyBjk9jRybbEHh21Biz-jXkWjFnJFZQb0SU",
+  authDomain: "aplicativo2-43c08.firebaseapp.com",
+  databaseURL: "https://aplicativo2-43c08-default-rtdb.firebaseio.com",
+  projectId: "aplicativo2-43c08",
+  storageBucket: "aplicativo2-43c08.firebasestorage.app",
+  messagingSenderId: "222100498306",
+  appId: "1:222100498306:web:3eebd9f073d16cac9ad19b",
+  measurementId: "G-HT6670K2VD"
 };
 // const firebaseConfig = {
 //   apiKey: "AIzaSyBYGDzJvJqzg8MhNCcqkGVvjrGdAQ2cCkQ",

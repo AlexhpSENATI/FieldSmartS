@@ -1,8 +1,7 @@
-// src/components/estadisticas/GraficasEstadisticas.jsx
 import React, { useContext, useState } from "react";
 import { EstadisticasContext } from "../../context/EstadisticasContext";
-import { Bar, Doughnut } from "react-chartjs-2";
 import "../../styles/EstadisticaDona.css";
+import { Bar } from "react-chartjs-2";
 import {
   Chart as ChartJS,
   Title,
@@ -29,27 +28,20 @@ const TIME_RANGES = {
   "1m": 30 * 24 * 60 * 60 * 1000,
 };
 
-const METRIC_NAMES = {
-  humedadSuelo: "Humedad del suelo",
-  humedadAmbiental: "Humedad ambiental",
-  temperatura: "Temperatura",
+const WEEK_DAYS = ["Lun", "Mar", "Mié", "Jue", "Vie", "Sáb", "Dom"];
+const MONTHS = [
+  "Ene", "Feb", "Mar", "Abr", "May", "Jun",
+  "Jul", "Ago", "Sep", "Oct", "Nov", "Dic"
+];
+
+const BAR_COLORS = {
+  promedio: "rgba(241, 196, 15, 0.8)",    
+  maximo: "rgba(46, 204, 113, 0.8)",       
+  minimo: "rgba(231, 76, 60, 0.8)"       
 };
 
-const WEEK_DAYS = ["lunes", "martes", "miércoles", "jueves", "viernes", "sábado", "domingo"];
-const MONTHS = [
-  "enero", "febrero", "marzo", "abril", "mayo", "junio",
-  "julio", "agosto", "septiembre", "octubre", "noviembre", "diciembre"
-];
 
-const COLORS_DAYS = [
-  "#FF6384", "#36A2EB", "#FFCE56", "#4BC0C0",
-  "#9966FF", "#FF9F40", "#66FF66"
-];
-const COLORS_MONTHS = [
-  "#FF6384", "#36A2EB", "#FFCE56", "#4BC0C0",
-  "#9966FF", "#FF9F40", "#66FF66", "#C9CBCF",
-  "#E7E9ED", "#A2FF99", "#FF99C8", "#99E6FF"
-];
+
 
 function parseFecha(d) {
   if (!d) return NaN;
@@ -65,7 +57,14 @@ export default function GraficasEstadisticas() {
   const [rango, setRango] = useState("7d");
   const [orden, setOrden] = useState("default");
 
-  if (!datos || datos.length === 0) return <p className="text-gray-500"></p>;
+  if (!datos || datos.length === 0) {
+    return (
+      <div className="stats-loading">
+        <div className="stats-spinner"></div>
+        <p className="stats-loading-text"></p>
+      </div>
+    );
+  }
 
   const obtenerDatosFiltrados = () => {
     const ahora = Date.now();
@@ -87,10 +86,9 @@ export default function GraficasEstadisticas() {
       if (isNaN(ts)) return;
 
       const fecha = new Date(ts);
-      let clave =
-        rango === "7d"
-          ? fecha.toLocaleDateString("es-ES", { weekday: "long" }).toLowerCase()
-          : fecha.toLocaleDateString("es-ES", { month: "long" }).toLowerCase();
+      let clave = rango === "7d"
+        ? WEEK_DAYS[fecha.getDay()]
+        : MONTHS[fecha.getMonth()];
 
       if (!agrupado[clave]) {
         agrupado[clave] = { humedadSuelo: [], humedadAmbiental: [], temperatura: [] };
@@ -121,7 +119,6 @@ export default function GraficasEstadisticas() {
 
   let agrupado = agruparDatos();
   let labels = rango === "7d" ? WEEK_DAYS : MONTHS;
-  const colors = rango === "7d" ? COLORS_DAYS : COLORS_MONTHS;
 
   if (orden !== "default") {
     labels = [...labels].sort((a, b) => {
@@ -131,46 +128,85 @@ export default function GraficasEstadisticas() {
     });
   }
 
-  const prepararDona = (metrica) => ({
-    labels,
-    datasets: [
-      {
-        label: METRIC_NAMES[metrica],
-        data: labels.map((k) => agrupado[k][metrica]),
-        backgroundColor: labels.map((_, i) => colors[i % colors.length]),
-      },
-    ],
-  });
-
   const prepararBarras = (metrica) => ({
     labels,
     datasets: [
-      { label: "Promedio", data: labels.map((k) => agrupado[k][metrica]), backgroundColor: "#36A2EB" },
-      { label: "Máximo", data: labels.map((k) => agrupado[k][`${metrica}Max`]), backgroundColor: "#4BC0C0" },
-      { label: "Mínimo", data: labels.map((k) => agrupado[k][`${metrica}Min`]), backgroundColor: "#FF6384" },
+      {
+        label: "Promedio",
+        data: labels.map((k) => agrupado[k][metrica]),
+        backgroundColor: BAR_COLORS.promedio,
+        borderColor: "#f39c12",
+        borderWidth: 1,
+        borderRadius: 4,
+      },
+      {
+        label: "Máximo",
+        data: labels.map((k) => agrupado[k][`${metrica}Max`]),
+        backgroundColor: BAR_COLORS.maximo,
+        borderColor: "#27ae60",
+        borderWidth: 1,
+        borderRadius: 4,
+      },
+      {
+        label: "Mínimo",
+        data: labels.map((k) => agrupado[k][`${metrica}Min`]),
+        backgroundColor: BAR_COLORS.minimo,
+        borderColor: "#c0392b",
+        borderWidth: 1,
+        borderRadius: 4,
+      },
     ],
   });
 
   const chartOptions = {
     responsive: true,
     maintainAspectRatio: false,
-    plugins: { legend: { position: "top", labels: { font: { size: 10 } } } },
+    plugins: {
+      legend: {
+        position: "top",
+        labels: {
+          color: "#ecf0f1",
+          font: {
+            size: 11,
+          }
+        }
+      }
+    },
+    scales: {
+      y: {
+        beginAtZero: true,
+        grid: {
+          color: "rgba(236, 240, 241, 0.1)"
+        },
+        ticks: {
+          color: "rgba(236, 240, 241, 0.7)",
+          font: {
+            size: 9
+          },
+          maxTicksLimit: 5
+        }
+      },
+      x: {
+        grid: {
+          color: "rgba(236, 240, 241, 0.1)"
+        },
+        ticks: {
+          color: "rgba(236, 240, 241, 0.7)",
+          font: {
+            size: 9
+          }
+        }
+      }
+    }
   };
 
   return (
-    <div className="donas-container">
-
-      <br />
-      <div className="card-header-donas">
-        <h2 className="card-title">
-          {rango === "actual"
-            ? ""
-            : `Barras - Promedio, Máximo y Mínimo - ${rango === "7d" ? "Por días de la semana" : "Por mes"}`}
-        </h2>
-
+    <div className="stats-container">
+      {/* TITULO */}
+      <div className='dona-title'>
+        <h1>Barras de Promedio, Máximo y Mínimo </h1>
       </div>
-      {/*============================CONTROLES================================== */}
-
+      {/* FILTRAR POR ORDEN DE DATOS  */}
       <div className="controls-donas">
         <div className="control-group-donas">
           <label className="donas-label">Rango:</label>
@@ -197,33 +233,39 @@ export default function GraficasEstadisticas() {
           </select>
         </div>
       </div>
-      <br />
-
-
-
-      {/* Donas */}
-      {/* <div className="donas-card-header">
-        <h2 className="donas-card-title">Donas - {rango === "7d" ? "Por día de la semana" : "Por mes"}</h2>
-      </div> */}
-      {/*=====================================GRAFICO DE DONAS====================================== */}
-      {/* <div className="donas-card">
-
-        <div className="donas-card-content donas-flex">
-          <div className="donas-item"><Doughnut data={prepararDona("temperatura")} options={chartOptions} height={250} /></div>
-          <div className="donas-item"><Doughnut data={prepararDona("humedadSuelo")} options={chartOptions} height={250} /></div>
-          <div className="donas-item"><Doughnut data={prepararDona("humedadAmbiental")} options={chartOptions} height={250} /></div>
-        </div>
-      </div> */}
-      {/* <div className="donas-card-header">
-        <h2 className="donas-card-title">Barras - Promedio, Máximo y Mínimo</h2>
-      </div> */}
-      {/*=====================================GRAFICO DE BARRAS====================================== */}
-      <div className="donas-card">
-
-        <div className="donas-card-content donas-flex">
-          <div className="donas-item"><Bar data={prepararBarras("temperatura")} options={chartOptions} height={300} /></div>
-          <div className="donas-item"><Bar data={prepararBarras("humedadSuelo")} options={chartOptions} height={300} /></div>
-          <div className="donas-item"><Bar data={prepararBarras("humedadAmbiental")} options={chartOptions} height={300} /></div>
+      {/* GRAFICA DE BARRAS DE TEMPERATURA, HUMEDAD AMBIENTAL Y HUMEDAD DE SUELO */}
+      <div className="stats-main-card">
+        <div className="stats-horizontal-container">
+          {/* TEMPERATURA */}
+          <div className="stats-chart-box">
+            <h3 className="stats-chart-title">Temperatura (°C)</h3>
+            <div className="stats-chart-container">
+              <Bar
+                data={prepararBarras("temperatura")}
+                options={chartOptions}
+              />
+            </div>
+          </div>
+          {/* HUMEDAD AMBIENTAL */}
+          <div className="stats-chart-box">
+            <h3 className="stats-chart-title">Humedad Ambiental (%)</h3>
+            <div className="stats-chart-container">
+              <Bar
+                data={prepararBarras("humedadAmbiental")}
+                options={chartOptions}
+              />
+            </div>
+          </div>
+          {/* HUMEDAD DE SUELO */}
+          <div className="stats-chart-box">
+            <h3 className="stats-chart-title">Humedad del Suelo (%)</h3>
+            <div className="stats-chart-container">
+              <Bar
+                data={prepararBarras("humedadSuelo")}
+                options={chartOptions}
+              />
+            </div>
+          </div>
         </div>
       </div>
     </div>

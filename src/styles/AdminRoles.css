@@ -1,80 +1,116 @@
-/* src/pages/AdminRoles.css */
-/* .admin-roles-container {
-  min-height: 100vh;
-  background: linear-gradient(135deg, #1a2a6c, #b21f1f, #fdbb2d);
-  padding: 20px;
-  color: #fff;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-} */
-
 .admin-header {
-  text-align: center;
-  margin-bottom: 30px;
+  background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
+  padding: 1.5rem 2rem;
+  border-radius: 15px;
+  box-shadow: 0 10px 30px rgba(255, 255, 255, 0.05);
+  margin-bottom: 2rem;
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border: 1px solid #333;
 }
 
 .admin-header h2 {
-  font-size: 2.5rem;
-  margin-bottom: 10px;
-  text-shadow: 2px 2px 4px rgba(255, 255, 255, 0.534);
-  color: rgb(255, 255, 255);
+  margin: 0;
+  color: #ffffff;
+  font-size: 1.8rem;
+  text-shadow: 0 0 10px rgba(100, 150, 255, 0.5);
 }
 
-.admin-header p {
-  font-size: 1.1rem;
-  opacity: 0.9;
+.header-decoration {
+  display: flex;
+  gap: 10px;
 }
+
 
 .message {
-  padding: 12px 20px;
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  padding: 1rem;
   border-radius: 8px;
-  margin-bottom: 20px;
+  margin-bottom: 0;
   text-align: center;
-  font-weight: 500;
+  font-weight: bold;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  animation: slideIn 0.3s ease-out;
+  border: 1px solid;
+  z-index: 9999;
 }
 
 .message.success {
-  background-color: rgba(46, 204, 113, 0.8);
-  color: #fff;
+  background: linear-gradient(to right, #004c8c 0%, #0066aa 100%);
+  color: #a0e0ff;
+  border-color: #0088ff;
+  text-shadow: 0 0 5px rgba(0, 136, 255, 0.7);
 }
 
 .message.error {
-  background-color: rgba(231, 76, 60, 0.8);
-  color: #fff;
+  background: linear-gradient(to right, #8c0032 0%, #aa0040 100%);
+  color: #ffa0c0;
+  border-color: #ff2a6d;
+  text-shadow: 0 0 5px rgba(255, 42, 109, 0.7);
 }
 
-.table-container {
-  background-color: rgba(255, 255, 255, 0.95);
-  border-radius: 12px;
-  overflow: hidden;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
-  padding: 20px;
+
+
+
+@keyframes slideIn {
+  from {
+    transform: translateY(-20px);
+    opacity: 0;
+  }
+
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
 }
+
+
 
 .users-table {
   width: 100%;
   border-collapse: collapse;
-  color: #333;
+  border-spacing: 0;
 }
 
 .users-table th {
-  background-color: #2c3e50;
-  color: white;
-  padding: 15px;
+  /* background: ; */
+  color: #ffffff;
+  padding: 1.3rem;
   text-align: left;
   font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  font-size: 0.9rem;
+  border-bottom: 1px solid #fdfdfd;
+}
+
+.users-table th:first-child {
+  border-top-left-radius: 10px;
+}
+
+.users-table th:last-child {
+  border-top-right-radius: 10px;
 }
 
 .users-table td {
-  padding: 15px;
-  border-bottom: 1px solid #eaeaea;
+  padding: 1.2rem;
+  border-bottom: 1px solid #333;
+  transition: all 0.2s;
+  color: #e0e0e0;
 }
 
 .users-table tr:last-child td {
   border-bottom: none;
 }
 
-.users-table tr:hover {
-  background-color: #f9f9f9;
+.users-table tr:hover td {
+  background: rgba(90, 60, 150, 0.1);
+  color: #ffffff;
 }
 
 .user-info {
@@ -87,89 +123,83 @@
   width: 40px;
   height: 40px;
   border-radius: 50%;
-  background: linear-gradient(135deg, #3498db, #2980b9);
   display: flex;
   align-items: center;
   justify-content: center;
-  color: white;
   font-weight: bold;
-  font-size: 1.1rem;
+  color: white;
+  background: linear-gradient(45deg, hsl(258, 91%, 47%) 0%, #160546 99%);
+  text-shadow: 0 0 3px rgba(0, 0, 0, 0.5);
 }
 
 .role-badge {
-  padding: 5px 12px;
+  padding: 0.5rem 1rem;
   border-radius: 20px;
   font-size: 0.85rem;
   font-weight: 600;
-}
-
-.role-user {
-  background-color: #e8f4fc;
-  color: #3498db;
-}
-
-.role-analyst {
-  background-color: #fef7ec;
-  color: #f39c12;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
 }
 
 .role-admin {
-  background-color: #fdeaea;
-  color: #e74c3c;
+  background: linear-gradient(to right, #cc0000, #b30c0c);
+}
+
+.role-analyst {
+  background: linear-gradient(to right, #0044cc, #3366ff);
+}
+
+.role-user {
+  background: linear-gradient(to right, #00cc44, #0a6829);
 }
 
 .role-select {
-  padding: 8px 12px;
-  border-radius: 6px;
-  border: 1px solid #ddd;
-  background-color: white;
-  font-size: 0.9rem;
+  padding: 0.6rem 1rem;
+  border-radius: 8px;
+  border: 2px solid #5e00cc;
+  background: #2a2a2a;
+  color: #ddccff;
+  font-weight: 600;
   cursor: pointer;
-  transition: all 0.3s;
+  outline: none;
+  transition: all 0.2s;
+  box-shadow: 0 0 10px rgba(0, 204, 27, 0.3);
 }
 
 .role-select:focus {
-  outline: none;
-  border-color: #3498db;
-  box-shadow: 0 0 0 2px rgba(52, 152, 219, 0.2);
+  border-color: #808d06;
+}
+
+.role-select:hover {
+  background: #333333;
 }
 
 .no-users {
   text-align: center;
-  padding: 30px;
-  color: #7f8c8d;
+  padding: 2rem;
+  color: #7a3dff;
   font-style: italic;
+  font-weight: 500;
+  text-shadow: 0 0 5px rgba(255, 155, 61, 0.3);
 }
 
-.loading-spinner {
-  width: 50px;
-  height: 50px;
-  border: 5px solid rgba(255, 255, 255, 0.3);
-  border-radius: 50%;
-  border-top-color: #fff;
-  animation: spin 1s ease-in-out infinite;
-  margin: 30px auto;
-}
-
-@keyframes spin {
-  to { transform: rotate(360deg); }
-}
-
-/* Responsive */
+/* Responsive design */
 @media (max-width: 768px) {
   .admin-roles-container {
-    padding: 10px;
+    padding: 1rem;
   }
-  
+
+  .admin-header {
+    flex-direction: column;
+    text-align: center;
+    gap: 15px;
+  }
+
   .table-container {
     overflow-x: auto;
   }
-  
+
   .users-table {
     min-width: 600px;
-  }
-  
-  .admin-header h2 {
-    font-size: 2rem;
   }
 }
