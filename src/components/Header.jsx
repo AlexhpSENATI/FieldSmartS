@@ -1,10 +1,14 @@
-import React from "react";
+// Header.jsx
+import React, { useContext } from "react";
 import { Search, Bell, Settings } from "lucide-react";
+import { MessagesContext } from "../context/MessagesContext";
 
 export default function Header() {
+  const { noLeidos } = useContext(MessagesContext);
+
   return (
     <header className="custom-header-987">
-      {/* Input de búsqueda */}
+      {/* Buscador */}
       <div className="custom-header-987__search">
         <Search className="icon" size={18} />
         <input type="text" placeholder="Buscar" />
@@ -12,8 +16,13 @@ export default function Header() {
 
       {/* Iconos y avatar */}
       <div className="custom-header-987__actions">
-        <button className="icon-btn"><Bell size={18} /></button>
-        <button className="icon-btn"><Settings size={18} /></button>
+        <button className="icon-btn notification-btn">
+          <Bell size={18} />
+          {noLeidos > 0 && <span className="badge">{noLeidos}</span>}
+        </button>
+        <button className="icon-btn">
+          <Settings size={18} />
+        </button>
         <img
           className="avatar"
           src="https://i.pravatar.cc/40"
@@ -21,7 +30,7 @@ export default function Header() {
         />
       </div>
 
-      {/* CSS en el mismo archivo */}
+      {/* CSS */}
       <style>{`
         .custom-header-987 {
           background-color: #121212;
@@ -38,7 +47,6 @@ export default function Header() {
           z-index: 100;
         }
 
-        /* Buscador */
         .custom-header-987__search {
           display: flex;
           align-items: center;
@@ -64,7 +72,6 @@ export default function Header() {
           background: transparent;
         }
 
-        /* Acciones */
         .custom-header-987__actions {
           display: flex;
           align-items: center;
@@ -84,6 +91,7 @@ export default function Header() {
           cursor: pointer;
           transition: background 0.2s;
           flex-shrink: 0;
+          position: relative;
         }
 
         .custom-header-987__actions .icon-btn:hover {
@@ -97,6 +105,19 @@ export default function Header() {
           object-fit: cover;
           cursor: pointer;
           flex-shrink: 0;
+        }
+
+        .badge {
+          position: absolute;
+          top: -4px;
+          right: -4px;
+          background: red;
+          color: white;
+          font-size: 0.7rem;
+          font-weight: bold;
+          border-radius: 50%;
+          padding: 2px 6px;
+          line-height: 1;
         }
       `}</style>
     </header>

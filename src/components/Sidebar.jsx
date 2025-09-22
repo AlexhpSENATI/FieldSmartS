@@ -8,6 +8,7 @@ import {
   FaWrench,
   FaClipboardList,
   FaUsers,
+   FaEnvelope,
 } from "react-icons/fa";
 import { MdLogout } from "react-icons/md";
 import { useAuth } from "../context/AuthContext";
@@ -27,7 +28,7 @@ const Sidebar = () => {
     { path: "/estadisticas", label: "Estadísticas", icon: FaChartBar, roles: ["admin"] },
     { path: "/control", label: "Control", icon: FaCogs, roles: ["admin", "analyst"] },
     { path: "/configuracion", label: "Usuarios", icon: FaUsers, roles: ["admin"] },
-    { path: "/logs", label: "Logs", icon: FaClipboardList, roles: ["admin", "user", "analyst"] },
+    { path: "/mensaje", label: "Mensaje", icon: FaEnvelope, roles: ["admin", "user", "analyst"] },
   ];
 
   return (

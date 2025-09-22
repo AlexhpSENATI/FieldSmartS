@@ -60,8 +60,8 @@ export default function GraficasEstadisticas() {
   if (!datos || datos.length === 0) {
     return (
       <div className="stats-loading">
-        <div className="stats-spinner"></div>
-        <p className="stats-loading-text"></p>
+        {/* <div className="stats-spinner"></div> */}
+        {/* <p className="stats-loading-text"></p> */}
       </div>
     );
   }

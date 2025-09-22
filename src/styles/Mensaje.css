@@ -1,0 +1,232 @@
+
+.mensajes-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+  padding-bottom: 15px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.mensajes-header h2 {
+  margin: 0;
+  color: #ffffff;
+  font-size: 1.8rem;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.icono-titulo {
+  font-size: 2rem;
+}
+
+.controles-mensajes {
+  display: flex;
+  gap: 15px;
+  align-items: center;
+}
+
+.filtro-select {
+  padding: 8px 15px;
+  border-radius: 8px;
+  border: 1px solid rgba(54, 54, 54, 0.979);
+  background: #2a2a2a;
+  color: #ffffff;
+  font-size: 1rem;
+  cursor: pointer;
+}
+
+.btn-borrar-todos {
+  padding: 8px 15px;
+  border-radius: 8px;
+  border: none;
+  background: rgb(122, 6, 6);
+  color: #ffffff;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.btn-borrar-todos:hover:not(:disabled) {
+  background: rgba(95, 7, 7, 0.897);
+}
+
+.btn-borrar-todos:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.sin-mensajes {
+  text-align: center;
+  padding: 40px 20px;
+  color: #ffffff;
+}
+
+.icono-sin-mensajes {
+  font-size: 3rem;
+  margin-bottom: 15px;
+  opacity: 0.5;
+}
+
+.lista-mensajes {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.mensaje {
+  display: flex;
+  background: rgb(255, 255, 255);
+  border-radius: 12px;
+  padding: 15px;
+  position: relative;
+  transition: all 0.3s ease;
+  border-left: 4px solid;
+}
+
+.mensaje:hover {
+  background: rgba(255, 255, 255, 0.08);
+  transform: translateY(-2px);
+}
+
+.mensaje.alerta {
+  border-left-color: #e00a0a;
+  background: rgba(109, 3, 3, 0.979);
+}
+
+.mensaje.advertencia {
+  border-left-color: #fffb00;
+  background: #775802;
+}
+
+.mensaje.exito {
+  border-left-color: #00cc66;
+  background: rgba(0, 204, 102, 0.1);
+}
+
+.mensaje.normal {
+  border-left-color: #4d79ff;
+}
+
+.mensaje.leido {
+  opacity: 0.7;
+}
+
+.mensaje-icono {
+  font-size: 2rem;
+  margin-right: 15px;
+  display: flex;
+  align-items: center;
+}
+
+.mensaje-contenido {
+  flex: 1;
+}
+
+.mensaje-texto {
+  font-weight: 500;
+  margin-bottom: 8px;
+  line-height: 1.4;
+  color: #ffffff;
+}
+
+.mensaje-fecha {
+  font-size: 0.85rem;
+  color: #ffffff;
+  margin-bottom: 12px;
+}
+
+.mensaje-acciones {
+  display: flex;
+  gap: 10px;
+}
+
+.btn-marcar-leido, .btn-borrar {
+  padding: 6px 12px;
+  border-radius: 6px;
+  border: none;
+  font-size: 0.85rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  transition: all 0.2s;
+}
+
+.btn-marcar-leido {
+  background: rgb(4, 95, 23);
+  color: #ffffff;
+}
+
+.btn-marcar-leido:hover {
+  background: rgb(6, 53, 1);
+}
+
+.btn-borrar {
+  background: rgba(224, 20, 20, 0.959);
+  color: #ffffff;
+}
+
+.btn-borrar:hover {
+  background: rgba(97, 5, 5, 0.815);
+}
+
+.icono-accion {
+  font-size: 1rem;
+}
+
+.indicador-no-leido {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: #32ff17;
+  animation: pulse 1.5s infinite;
+}
+
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  50% {
+    transform: scale(1.2);
+    opacity: 0.7;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .mensajes-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 15px;
+  }
+  
+  .controles-mensajes {
+    width: 100%;
+    justify-content: space-between;
+  }
+  
+  .mensaje {
+    flex-direction: column;
+    text-align: center;
+  }
+  
+  .mensaje-icono {
+    margin-right: 0;
+    margin-bottom: 10px;
+    justify-content: center;
+  }
+  
+  .mensaje-acciones {
+    justify-content: center;
+  }
+}

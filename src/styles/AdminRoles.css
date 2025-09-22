@@ -54,9 +54,6 @@
   text-shadow: 0 0 5px rgba(255, 42, 109, 0.7);
 }
 
-
-
-
 @keyframes slideIn {
   from {
     transform: translateY(-20px);

@@ -82,7 +82,7 @@ export default function AdminRoles() {
               <th>Nombre</th>
               <th>Email</th>
               <th>Rol Actual</th>
-              <th>Cambiar Rol</th>
+              <th>Acciones</th>
             </tr>
           </thead>
           <tbody>

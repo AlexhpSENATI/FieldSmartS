@@ -7,6 +7,7 @@ import "./styles/sidebar.css";
 import { AppProvider } from "./context/AppContext";
 import { AuthProvider } from "./context/AuthContext";
 import { EstadisticasProvider } from "./context/EstadisticasContext";
+import { MessagesProvider } from "./context/MessagesContext";
 
 import Sidebar from "./components/Sidebar";
 import Header from "./components/Header";
@@ -18,6 +19,7 @@ import Dashboard from "./components/pages/Dashboard";
 import Estadisticas from "./components/pages/Estadisticas";
 import Control from "./components/pages/Control";
 import Configuracion from "./components/pages/AdminRoles";
+import Mensaje from "./components/pages/Mensaje"
 // import Inicio from "./Inicio";
 
 function PrivateLayout({ children }) {
@@ -36,47 +38,57 @@ function App() {
   return (
     <AuthProvider>
       <AppProvider>
-        <Routes>
-          <Route path="/" element={<Inicio />} />
-          <Route path="/login" element={<Login />} />
+        <MessagesProvider>
+          <Routes>
+            <Route path="/" element={<Inicio />} />
+            <Route path="/login" element={<Login />} />
 
-          <Route
-            path="/dashboard"
-            element={
-              <PrivateLayout>
-                <Dashboard />
-              </PrivateLayout>
-            }
-          />
-          <Route
-            path="/estadisticas"
-            element={
-              <PrivateLayout>
-                <EstadisticasProvider>
-                  <Estadisticas />
-                </EstadisticasProvider>
-              </PrivateLayout>
-            }
-          />
-          <Route
-            path="/control"
-            element={
-              <PrivateLayout>
-                <Control />
-              </PrivateLayout>
-            }
-          />
-          <Route
-            path="/configuracion"
-            element={
-              <PrivateLayout>
-                <Configuracion />
-              </PrivateLayout>
-            }
-          />
+            <Route
+              path="/dashboard"
+              element={
+                <PrivateLayout>
+                  <Dashboard />
+                </PrivateLayout>
+              }
+            />
+            <Route
+              path="/estadisticas"
+              element={
+                <PrivateLayout>
+                  <EstadisticasProvider>
+                    <Estadisticas />
+                  </EstadisticasProvider>
+                </PrivateLayout>
+              }
+            />
+            <Route
+              path="/control"
+              element={
+                <PrivateLayout>
+                  <Control />
+                </PrivateLayout>
+              }
+            />
+            <Route
+              path="/configuracion"
+              element={
+                <PrivateLayout>
+                  <Configuracion />
+                </PrivateLayout>
+              }
+            />
+            <Route
+              path="/mensaje"
+              element={
+                <PrivateLayout>
+                  <Mensaje />
+                </PrivateLayout>
+              }
+            />
 
-          <Route path="*" element={<Navigate to="/" />} />
-        </Routes>
+            <Route path="*" element={<Navigate to="/" />} />
+          </Routes>
+        </MessagesProvider>
       </AppProvider>
     </AuthProvider>
   );
