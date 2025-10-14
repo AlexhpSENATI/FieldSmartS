@@ -2,7 +2,7 @@ import React from "react";
 import { Routes, Route, Navigate } from "react-router-dom";
 
 import "bootstrap-icons/font/bootstrap-icons.css";
-import "./styles/sidebar.css";
+import "./styles/Sidebar.css";
 
 import { AppProvider } from "./context/AppContext";
 import { AuthProvider } from "./context/AuthContext";
@@ -19,7 +19,10 @@ import Dashboard from "./components/pages/Dashboard";
 import Estadisticas from "./components/pages/Estadisticas";
 import Control from "./components/pages/Control";
 import Configuracion from "./components/pages/AdminRoles";
-import Mensaje from "./components/pages/Mensaje"
+import Mensaje from "./components/pages/Mensaje";
+import Chatbot from "./components/pages/Chatbot"
+
+
 // import Inicio from "./Inicio";
 
 function PrivateLayout({ children }) {
@@ -82,6 +85,14 @@ function App() {
               element={
                 <PrivateLayout>
                   <Mensaje />
+                </PrivateLayout>
+              }
+            />
+            <Route
+              path="/chatbot"
+              element={
+                <PrivateLayout>
+                  <Chatbot />
                 </PrivateLayout>
               }
             />

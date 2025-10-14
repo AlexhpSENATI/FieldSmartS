@@ -21,82 +21,7 @@ export default function Home() {
     document.body.style.overflow = showModal ? "hidden" : "unset";
   }, [showModal]);
 
-  // // --- Registro ---
-  // async function handleRegister(e) {
-  //   e.preventDefault();
-  //   const result = await registerUser(name, email, password, "user");
 
-  //   if (result.success) {
-  //     setMessage(" Registro exitoso. Ahora puedes iniciar sesión.");
-  //     setTimeout(() => {
-  //       setIsRegister(false);
-  //       setEmail("");
-  //       setPassword("");
-  //       setName("");
-  //       setMessage("");
-  //     }, 1500);
-  //   } else {
-  //     setMessage(`❌ Error: ${result.message}`);
-  //   }
-  // }
-
-  // // --- Login ---
-  // async function handleLogin(e) {
-  //   e.preventDefault();
-
-  //   console.log("email:", email, "password:", password, typeof email, typeof password);
-
-  //   if (typeof email !== "string" || typeof password !== "string") {
-  //     setMessage("❌ Email o contraseña inválidos");
-  //     return;
-  //   }
-
-  //   // const result = await loginUser(email, password);
-  //   const result = await loginUser(email.trim(), password.trim());
-  //   if (!result.success) {
-  //     setMessage(`❌ Error: ${result.message}`);
-  //     return;
-  //   }
-
-  //   login(result.user);
-  //   setShowModal(false);
-  //   navigate("/dashboard");
-  // }
-
-  // //   async function handleLogin(e) {
-  // //     e.preventDefault();
-  // // console.log("email:", email, "password:", password, typeof email, typeof password);
-
-  // //     // console.log("Intentando login con:", email, password); // debug
-
-  // //     const result = await loginUser(email, password);
-
-  // //     if (!result.success) {
-  // //       setMessage(`❌ Error: ${result.message}`);
-  // //       return;
-  // //     }
-
-  // //     login(result.user);
-  // //     setShowModal(false);
-  // //     navigate("/dashboard");
-  // //   }
-
-  // // --- Login con Google ---
-  // async function handleGoogleLogin() {
-  //   try {
-  //     const result = await loginWithGoogle();
-  //     if (!result.success) {
-  //       setMessage("❌ " + result.message);
-  //     } else {
-  //       setMessage("✅ Bienvenido " + (result.user.displayName || ""));
-  //       login(result.user);
-  //       setShowModal(false);
-  //       navigate("/dashboard");
-  //     }
-  //   } catch (error) {
-  //     setMessage("❌ " + error.message);
-  //   }
-  // }
   // --- Mapeo de errores de Firebase a mensajes en español ---
   function getErrorMessage(code) {
     switch (code) {
@@ -404,8 +329,7 @@ export default function Home() {
                     <input
                       type="password"
                       value={password}
-
-                      onChange={(e) => setPassword(e.target.value)}
+                      onChange={(e) => setPassword(e.target.value)} // ✅ TAMBIÉN AQUÍ
                       required
                     />
                     <label>Contraseña</label>

@@ -8,7 +8,7 @@ import {
   FaWrench,
   FaClipboardList,
   FaUsers,
-   FaEnvelope,
+  FaEnvelope,
 } from "react-icons/fa";
 import { MdLogout } from "react-icons/md";
 import { useAuth } from "../context/AuthContext";
@@ -29,6 +29,9 @@ const Sidebar = () => {
     { path: "/control", label: "Control", icon: FaCogs, roles: ["admin", "analyst"] },
     { path: "/configuracion", label: "Usuarios", icon: FaUsers, roles: ["admin"] },
     { path: "/mensaje", label: "Mensaje", icon: FaEnvelope, roles: ["admin", "user", "analyst"] },
+
+    { path: "/chatbot", label: "Chatbot", icon: FaEnvelope, roles: ["admin", "user", "analyst"] },
+
   ];
 
   return (
