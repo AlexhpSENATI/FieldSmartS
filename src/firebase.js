@@ -4,14 +4,14 @@ import { getDatabase } from "firebase/database";
 import { getAuth } from "firebase/auth";
 
 const firebaseConfig = {
-  apiKey: "AIzaSyCqRzGN4jMrz0rZXwWBDpasvh1zddedStc",
-  authDomain: "fieldsmartapp-659ad.firebaseapp.com",
-  databaseURL: "https://fieldsmartapp-659ad-default-rtdb.firebaseio.com",
-  projectId: "fieldsmartapp-659ad",
-  storageBucket: "fieldsmartapp-659ad.firebasestorage.app",
-  messagingSenderId: "642293255398",
-  appId: "1:642293255398:web:291a0df39138be33d07f27",
-  measurementId: "G-Q2V19K25GN"
+  apiKey: "AIzaSyCf6dz2wmUm9-TcaTdWfheTxdr-FpeXsQw",
+  authDomain: "aaaaaa-fd722.firebaseapp.com",
+  databaseURL: "https://aaaaaa-fd722-default-rtdb.firebaseio.com",
+  projectId: "aaaaaa-fd722",
+  storageBucket: "aaaaaa-fd722.firebasestorage.app",
+  messagingSenderId: "965826438721",
+  appId: "1:965826438721:web:cd63c0c2ef21f15dbb08c0",
+  measurementId: "G-3M68ZP110D"
 };
 // const firebaseConfig = {
 //   apiKey: "AIzaSyBYGDzJvJqzg8MhNCcqkGVvjrGdAQ2cCkQ",
