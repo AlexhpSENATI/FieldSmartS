@@ -18,7 +18,7 @@ import ChatbotFloat from "./components/ChatbotFloat";
 
 import Inicio from "./Inicio";
 import Login from "./components/login";
-import Dashboard from "./components/pages/Dashboard.jsx";
+import Dashboard from "./components/pages/prueba";
 import Estadisticas from "./components/pages/Estadisticas";
 import Control from "./components/pages/Control";
 import Configuracion from "./components/pages/AdminRoles";
