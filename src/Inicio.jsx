@@ -4,7 +4,7 @@ import { useAuth } from "./context/AuthContext";
 import { FcGoogle } from "react-icons/fc";
 import { FaYoutube } from "react-icons/fa";
 import "./styles/Inicio.css";
-import { registerUser, loginUser, loginWithGoogle } from "./services/authService";
+import { registerUser, loginUser, loginWithGoogle } from "./services/authService.js";
 
 export default function Home() {
   const { login } = useAuth();
@@ -49,11 +49,25 @@ export default function Home() {
   // --- Registro ---
   async function handleRegister(e) {
     e.preventDefault();
+
+    // 🔹 Validación estricta de tipos
+    if (typeof email !== "string" || typeof password !== "string") {
+      setMessage("❌ Email o contraseña inválidos");
+      console.error("Error en registro: email o password no son strings", email, password);
+      return;
+    }
+
     try {
-      const result = await registerUser(name, email, password, "user");
+      // 🔹 Limpiar espacios y normalizar email
+      const cleanEmail = email.trim().toLowerCase();
+      const cleanPassword = password.trim();
+      const cleanName = name?.trim() || "";
+
+      // 🔹 Llamada al servicio de registro
+      const result = await registerUser(cleanName, cleanEmail, cleanPassword, "user");
 
       if (result.success) {
-        setMessage(" Registro exitoso. Ahora puedes iniciar sesión.");
+        setMessage("✅ Registro exitoso. Ahora puedes iniciar sesión.");
         setTimeout(() => {
           setIsRegister(false);
           setEmail("");
@@ -68,6 +82,7 @@ export default function Home() {
     } catch (error) {
       const friendlyMessage = getErrorMessage(error.code);
       setMessage(`❌ ${friendlyMessage}`);
+      console.error("Error catch handleRegister:", error);
     }
   }
 
@@ -75,13 +90,20 @@ export default function Home() {
   async function handleLogin(e) {
     e.preventDefault();
 
+    // 🔹 Validación estricta de tipos
     if (typeof email !== "string" || typeof password !== "string") {
       setMessage("❌ Email o contraseña inválidos");
+      console.error("Error en login: email o password no son strings", email, password);
       return;
     }
 
     try {
-      const result = await loginUser(email.trim(), password.trim());
+      // 🔹 Limpiar espacios y normalizar email
+      const cleanEmail = email.trim().toLowerCase();
+      const cleanPassword = password.trim();
+
+      // 🔹 Llamada al servicio de login
+      const result = await loginUser(cleanEmail, cleanPassword);
 
       if (!result.success) {
         const friendlyMessage = getErrorMessage(result.message || result.code);
@@ -89,12 +111,14 @@ export default function Home() {
         return;
       }
 
-      login(result.user);
+      // 🔹 Login exitoso
+      // ELIMINADO: login(result.user);  // Esto causaba el error, ya que pasa un objeto en lugar de email/password
       setShowModal(false);
       navigate("/dashboard");
     } catch (error) {
       const friendlyMessage = getErrorMessage(error.code);
       setMessage(`❌ ${friendlyMessage}`);
+      console.error("Error catch handleLogin:", error);
     }
   }
 
@@ -107,7 +131,7 @@ export default function Home() {
         setMessage(`❌ ${friendlyMessage}`);
       } else {
         setMessage("✅ Bienvenido " + (result.user.displayName || ""));
-        login(result.user);
+        // ELIMINADO: login(result.user);  // Esto causaba el error, ya que pasa un objeto en lugar de email/password
         setShowModal(false);
         navigate("/dashboard");
       }

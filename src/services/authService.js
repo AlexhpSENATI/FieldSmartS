@@ -12,6 +12,7 @@ import { ref, set, get, update } from "firebase/database";
 // Proveedor de Google
 const googleProvider = new GoogleAuthProvider();
 
+
 /**
  * 🔹 Registrar usuario nuevo
  */
@@ -84,6 +85,8 @@ export async function loginUser(email, password) {
     return { success: false, message: error.code || error.message };
   }
 }
+
+
 
 /**
  * 🔹 Iniciar sesión con Google

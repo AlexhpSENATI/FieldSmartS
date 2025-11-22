@@ -1,88 +1,107 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, useRef } from "react";
 
-export default function ChatbotFieldSmart() {
-  const [input, setInput] = useState("");
+const Chatbot = () => {
   const [messages, setMessages] = useState([
-    { from: "bot", text: "¡Hola! Soy FieldSmart, tu asesor en riego automatizado 🌱. ¿En qué puedo ayudarte?" },
+    { type: "incoming", text: "¡Hola! ¿En qué puedo ayudarte?" },
   ]);
+  const [userMessage, setUserMessage] = useState("");
+  const [sessionId, setSessionId] = useState("");
+  const chatboxRef = useRef(null);
+  const API_URL = "http://localhost:5678/webhook/chatbotalex"; // URL del webhook de n8n
 
-  const sendMessage = async () => {
-    if (!input.trim()) return;
-
-    // Mostrar mensaje del usuario
-    const newMessages = [...messages, { from: "user", text: input }];
-    setMessages(newMessages);
-
-    try {
-      const response = await fetch("http://localhost:11434/api/generate", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          model: "chatbotfieldsmart",
-          prompt: input,
-        }),
-      });
-
-      const reader = response.body.getReader();
-      let botResponse = "";
-
-      // Leer la respuesta por streaming
-      while (true) {
-        const { done, value } = await reader.read();
-        if (done) break;
-        const chunk = new TextDecoder().decode(value);
-        try {
-          const json = JSON.parse(chunk);
-          if (json.response) botResponse += json.response;
-        } catch {
-          // Si llega texto parcial, se ignora
-        }
-      }
-
-      setMessages((msgs) => [...msgs, { from: "bot", text: botResponse }]);
-    } catch (error) {
-      console.error(error);
-      setMessages((msgs) => [
-        ...msgs,
-        { from: "bot", text: "⚠️ Error al conectar con el modelo local." },
-      ]);
+  // Generar o recuperar session_id
+  useEffect(() => {
+    let storedSession = localStorage.getItem("chat_session_id");
+    if (!storedSession) {
+      storedSession = "session_" + Math.random().toString(36).substr(2, 9);
+      localStorage.setItem("chat_session_id", storedSession);
     }
+    setSessionId(storedSession);
+  }, []);
 
-    setInput("");
+  const scrollToBottom = () => {
+    if (chatboxRef.current) {
+      chatboxRef.current.scrollTo(0, chatboxRef.current.scrollHeight);
+    }
   };
 
-  return (
-    <div className="flex flex-col max-w-md mx-auto p-4 bg-white shadow-lg rounded-2xl">
-      <div className="h-96 overflow-y-auto border rounded-md p-3 mb-3">
-        {messages.map((msg, i) => (
-          <div
-            key={i}
-            className={`mb-2 p-2 rounded-md ${
-              msg.from === "bot"
-                ? "bg-green-100 text-gray-800 self-start"
-                : "bg-blue-100 text-gray-900 self-end text-right"
-            }`}
-          >
-            {msg.text}
-          </div>
-        ))}
-      </div>
+  const handleSend = async () => {
+    if (!userMessage.trim()) return;
 
-      <div className="flex">
-        <input
-          type="text"
-          value={input}
-          onChange={(e) => setInput(e.target.value)}
-          className="flex-1 border rounded-l-md p-2"
-          placeholder="Escribe tu pregunta..."
-        />
-        <button
-          onClick={sendMessage}
-          className="bg-green-600 text-white px-4 py-2 rounded-r-md hover:bg-green-700"
-        >
+    const outgoingMsg = { type: "outgoing", text: userMessage };
+    setMessages((prev) => [...prev, outgoingMsg]);
+    setUserMessage("");
+    scrollToBottom();
+
+    const incomingPlaceholder = { type: "incoming", text: "Pensando..." };
+    setMessages((prev) => [...prev, incomingPlaceholder]);
+
+    try {
+      const res = await fetch(API_URL, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ message: userMessage, session_id: sessionId }),
+      });
+
+      const data = await res.json();
+      const responseText = data.response || data;
+
+      setMessages((prev) => [
+        ...prev.slice(0, -1),
+        { type: "incoming", text: responseText },
+      ]);
+    } catch (err) {
+      setMessages((prev) => [
+        ...prev.slice(0, -1),
+        { type: "incoming", text: "¡Ups! Algo salió mal.", error: true },
+      ]);
+    } finally {
+      scrollToBottom();
+    }
+  };
+
+  const handleKeyPress = (e) => {
+    if (e.key === "Enter" && !e.shiftKey) {
+      e.preventDefault();
+      handleSend();
+    }
+  };
+
+  const [isClosed, setIsClosed] = useState(false);
+
+  if (isClosed) {
+    return <p className="lastMessage">¡Gracias por usar el Chatbot!</p>;
+  }
+
+  return (
+    <div className="chatbot">
+      <header>
+        <h2>ChatBot</h2>
+        <span id="close-btn" onClick={() => setIsClosed(true)}>
+          X
+        </span>
+      </header>
+      <ul className="chatbox" ref={chatboxRef}>
+        {messages.map((msg, i) => (
+          <li key={i} className={`chat ${msg.type}`}>
+            {msg.type === "incoming" && <span>🤖</span>}
+            <p className={msg.error ? "error" : ""}>{msg.text}</p>
+          </li>
+        ))}
+      </ul>
+      <div className="chat-input">
+        <textarea
+          placeholder="Escribe un mensaje..."
+          value={userMessage}
+          onChange={(e) => setUserMessage(e.target.value)}
+          onKeyDown={handleKeyPress}
+        ></textarea>
+        <button id="send-btn" onClick={handleSend}>
           Enviar
         </button>
       </div>
     </div>
   );
-}
+};
+
+export default Chatbot;

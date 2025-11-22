@@ -27,7 +27,7 @@ const Sidebar = () => {
     { path: "/dashboard", label: "Dashboard", icon: FaHome, roles: ["admin", "user", "analyst"] },
     { path: "/estadisticas", label: "Estadísticas", icon: FaChartBar, roles: ["admin"] },
     { path: "/control", label: "Control", icon: FaCogs, roles: ["admin", "analyst"] },
-    { path: "/configuracion", label: "Usuarios", icon: FaUsers, roles: ["admin"] },
+    { path: "/configuracion", label: "Usuarios", icon: FaUsers, roles: ["admin", "user"] },
     { path: "/mensaje", label: "Mensaje", icon: FaEnvelope, roles: ["admin", "user", "analyst"] },
 
     { path: "/chatbot", label: "Chatbot", icon: FaEnvelope, roles: ["admin", "user", "analyst"] },
