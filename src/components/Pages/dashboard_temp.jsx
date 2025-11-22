@@ -1,6 +1,6 @@
 // Dashboard.jsx - Versión Multicolor con Iconos Bootstrap
 import React, { useState, useEffect } from 'react';
-import { useAppContext } from './../../context/AppContext';
+import { useAppContext } from '../../context/AppContext';
 import '../../styles/Dashboard.css';
 
 const Dashboard = () => {
