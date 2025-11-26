@@ -30,7 +30,7 @@ const Sidebar = () => {
     { path: "/configuracion", label: "Usuarios", icon: FaUsers, roles: ["admin", "user"] },
     { path: "/mensaje", label: "Mensaje", icon: FaEnvelope, roles: ["admin", "user", "analyst"] },
 
-    { path: "/chatbot", label: "Chatbot", icon: FaEnvelope, roles: ["admin", "user", "analyst"] },
+    // { path: "/chatbot", label: "Chatbot", icon: FaEnvelope, roles: ["admin", "user", "analyst"] },
 
   ];
 

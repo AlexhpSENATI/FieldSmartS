@@ -4,14 +4,14 @@ import { getDatabase } from "firebase/database";
 import { getAuth } from "firebase/auth";
 
 const firebaseConfig = {
-  apiKey: "AIzaSyCf6dz2wmUm9-TcaTdWfheTxdr-FpeXsQw",
-  authDomain: "aaaaaa-fd722.firebaseapp.com",
-  databaseURL: "https://aaaaaa-fd722-default-rtdb.firebaseio.com",
-  projectId: "aaaaaa-fd722",
-  storageBucket: "aaaaaa-fd722.firebasestorage.app",
-  messagingSenderId: "965826438721",
-  appId: "1:965826438721:web:cd63c0c2ef21f15dbb08c0",
-  measurementId: "G-3M68ZP110D"
+  apiKey: "AIzaSyD2L-xHHwmlFrYUy8aOx6xaZJDTfXTQOs0",
+  authDomain: "proyectofieldsmart.firebaseapp.com",
+  databaseURL: "https://proyectofieldsmart-default-rtdb.firebaseio.com",
+  projectId: "proyectofieldsmart",
+  storageBucket: "proyectofieldsmart.firebasestorage.app",
+  messagingSenderId: "68756218060",
+  appId: "1:68756218060:web:135c8a1c4fde56f9f96269",
+  measurementId: "G-VTDEZRH4XM"
 };
 // const firebaseConfig = {
 //   apiKey: "AIzaSyBYGDzJvJqzg8MhNCcqkGVvjrGdAQ2cCkQ",
@@ -29,7 +29,7 @@ const app = initializeApp(firebaseConfig);
 
 // =================== Exportar la base de datos y la autenticación =================== //
 export const db = getDatabase(app);
-export const auth = getAuth(app);  // 👈 Ahora sí exportas auth
+export const auth = getAuth(app);  
 
 // // firebase.js
 // import { initializeApp } from "firebase/app";

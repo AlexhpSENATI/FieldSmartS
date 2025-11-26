@@ -23,7 +23,7 @@ import Estadisticas from "./components/pages/Estadisticas";
 import Control from "./components/pages/Control";
 import Configuracion from "./components/pages/AdminRoles";
 import Mensaje from "./components/pages/Mensaje";
-import Chatbot from "./components/pages/Chatbot";
+// import Chatbot from "./components/pages/Chatbot";
 
 function PrivateLayout({ children }) {
   return (
@@ -106,7 +106,7 @@ function App() {
               }
             />
 
-            <Route
+            {/* <Route
               path="/chatbot"
               element={
                 <PrivateRoute>
@@ -115,7 +115,7 @@ function App() {
                   </PrivateLayout>
                 </PrivateRoute>
               }
-            />
+            /> */}
 
             {/* Default */}
             <Route path="*" element={<Navigate to="/" />} />
